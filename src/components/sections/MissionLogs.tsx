@@ -65,20 +65,25 @@ export default function MissionLogs({ projects }: { projects?: Project[] }) {
               <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan/30 to-transparent z-20" />
             </div>
 
-            <div className="p-6">
-              <h3 className="text-lg font-semibold text-text-primary mb-2 group-hover:text-cyan transition-colors" style={{ fontFamily: "var(--font-heading), sans-serif" }}>{project.title}</h3>
-              <p className="text-text-secondary text-sm leading-relaxed mb-4">{project.description}</p>
-              <div className="flex flex-wrap gap-2 mb-5">
-                {project.language && (
-                  <span className="px-2.5 py-1 rounded-md text-[10px] tracking-wider uppercase bg-cyan/10 border border-cyan/30 text-cyan font-bold" style={{ fontFamily: "var(--font-mono)" }}>
-                    {project.language}
-                  </span>
-                )}
-                {project.techStack.map((tech) => (
-                  <span key={tech} className="px-2.5 py-1 rounded-md text-[10px] tracking-wider uppercase glass-light text-cyan-dim" style={{ fontFamily: "var(--font-mono)" }}>{tech}</span>
-                ))}
+            <div className="p-6 flex flex-col h-[calc(100%-12rem)]">
+              <div className="flex-1">
+                <h3 className="text-lg font-semibold text-text-primary mb-2 group-hover:text-cyan transition-colors" style={{ fontFamily: "var(--font-heading), sans-serif" }}>{project.title}</h3>
+                <p className="text-text-secondary text-sm leading-relaxed mb-4 line-clamp-3 h-15">
+                  {project.description}
+                </p>
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {project.language && (
+                    <span className="px-2.5 py-1 rounded-md text-[10px] tracking-wider uppercase bg-cyan/10 border border-cyan/30 text-cyan font-bold" style={{ fontFamily: "var(--font-mono)" }}>
+                      {project.language}
+                    </span>
+                  )}
+                  {project.techStack.map((tech) => (
+                    <span key={tech} className="px-2.5 py-1 rounded-md text-[10px] tracking-wider uppercase glass-light text-cyan-dim" style={{ fontFamily: "var(--font-mono)" }}>{tech}</span>
+                  ))}
+                </div>
               </div>
-              <div className="flex items-center gap-3">
+
+              <div className="flex items-center gap-3 mt-auto">
                 {project.liveUrl && (
                   <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 rounded-lg text-xs tracking-wider uppercase glass-light text-text-primary hover:text-cyan transition-all" style={{ fontFamily: "var(--font-mono)" }}>
                     <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
