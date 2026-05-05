@@ -193,6 +193,7 @@ export interface Project {
   liveUrl?: string;
   githubUrl?: string;
   image?: string;
+  language?: string;
 }
 
 export const PROJECTS: Project[] = [

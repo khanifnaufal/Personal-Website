@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { PROJECTS } from "@/lib/constants";
+import { PROJECTS, type Project } from "@/lib/constants";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 
 const containerVariants = {
@@ -14,7 +14,10 @@ const cardVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } },
 };
 
-export default function MissionLogs() {
+export default function MissionLogs({ projects }: { projects?: Project[] }) {
+  // Use dynamic projects if available, otherwise fallback to static ones
+  const displayProjects = projects && projects.length > 0 ? projects : PROJECTS;
+
   return (
     <SectionWrapper id="mission-logs" label="MISSION_LOGS">
       <div className="text-center mb-16">
@@ -28,25 +31,49 @@ export default function MissionLogs() {
       </div>
 
       <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.1 }} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-        {PROJECTS.map((project) => (
+        {displayProjects.map((project) => (
           <motion.div key={project.id} variants={cardVariants} className="glass-card rounded-2xl overflow-hidden group relative">
-            <div className="relative h-40 overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan/10 via-purple/10 to-magenta/10" />
-              <div className="absolute inset-0 flex items-center justify-center">
+            <div className="relative h-48 overflow-hidden bg-space-black/50">
+              {/* Background Glow */}
+              <div className="absolute inset-0 bg-gradient-to-br from-cyan/10 via-purple/10 to-magenta/10 z-0" />
+              
+              {/* Project Image */}
+              {project.image ? (
+                <div className="absolute inset-0 z-10">
+                  <img 
+                    src={project.image} 
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).style.display = 'none';
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-space-black/40 group-hover:bg-transparent transition-colors duration-300" />
+                </div>
+              ) : null}
+
+              {/* Fallback / Overlay Icon */}
+              <div className="absolute inset-0 flex items-center justify-center z-0">
                 <div className="w-16 h-16 rounded-full border border-cyan/20 flex items-center justify-center group-hover:border-cyan/40 transition-colors">
                   <svg className="w-8 h-8 text-cyan/50 group-hover:text-cyan/80 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
               </div>
-              <div className="absolute top-3 right-3 px-2 py-1 rounded glass-light text-[10px] tracking-[0.15em] text-text-muted" style={{ fontFamily: "var(--font-mono)" }}>{project.id}</div>
-              <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan/30 to-transparent" />
+              
+              <div className="absolute top-3 right-3 px-2 py-1 rounded glass-light text-[10px] tracking-[0.15em] text-text-muted z-20" style={{ fontFamily: "var(--font-mono)" }}>{project.id}</div>
+              <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan/30 to-transparent z-20" />
             </div>
 
             <div className="p-6">
               <h3 className="text-lg font-semibold text-text-primary mb-2 group-hover:text-cyan transition-colors" style={{ fontFamily: "var(--font-heading), sans-serif" }}>{project.title}</h3>
               <p className="text-text-secondary text-sm leading-relaxed mb-4">{project.description}</p>
               <div className="flex flex-wrap gap-2 mb-5">
+                {project.language && (
+                  <span className="px-2.5 py-1 rounded-md text-[10px] tracking-wider uppercase bg-cyan/10 border border-cyan/30 text-cyan font-bold" style={{ fontFamily: "var(--font-mono)" }}>
+                    {project.language}
+                  </span>
+                )}
                 {project.techStack.map((tech) => (
                   <span key={tech} className="px-2.5 py-1 rounded-md text-[10px] tracking-wider uppercase glass-light text-cyan-dim" style={{ fontFamily: "var(--font-mono)" }}>{tech}</span>
                 ))}

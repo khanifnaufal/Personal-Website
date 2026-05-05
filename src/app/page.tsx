@@ -6,8 +6,11 @@ import PilotProfile from "@/components/sections/PilotProfile";
 import FlightHistory from "@/components/sections/FlightHistory";
 import MissionLogs from "@/components/sections/MissionLogs";
 import SignalTransmission from "@/components/sections/SignalTransmission";
+import { getGithubProjects } from "@/lib/github";
 
-export default function Home() {
+export default async function Home() {
+  const githubProjects = await getGithubProjects();
+
   return (
     <main className="relative">
       {/* Fixed 3D background */}
@@ -27,7 +30,7 @@ export default function Home() {
         <FlightHistory />
 
         <SectionDivider variant="magenta" />
-        <MissionLogs />
+        <MissionLogs projects={githubProjects} />
 
         <SectionDivider />
         <SignalTransmission />

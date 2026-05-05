@@ -11,7 +11,7 @@ export function middleware(request: NextRequest) {
     default-src 'self';
     script-src 'self' 'unsafe-inline' 'unsafe-eval';
     style-src 'self' 'unsafe-inline';
-    img-src 'self' blob: data: https://cdn.jsdelivr.net;
+    img-src 'self' blob: data: https://cdn.jsdelivr.net https://raw.githubusercontent.com https://github.com https://*.githubusercontent.com;
     font-src 'self' https://fonts.gstatic.com;
     connect-src 'self' https://api.resend.com${isDev ? " ws://localhost:* http://localhost:*" : ""};
     object-src 'none';
