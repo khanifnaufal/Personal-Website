@@ -72,11 +72,11 @@ export default function MissionLogs({ projects }: { projects?: Project[] }) {
                   {project.description}
                 </p>
                 <div className="flex flex-wrap gap-2 mb-6">
-                  {project.language && (
-                    <span className="px-2.5 py-1 rounded-md text-[10px] tracking-wider uppercase bg-cyan/10 border border-cyan/30 text-cyan font-bold" style={{ fontFamily: "var(--font-mono)" }}>
-                      {project.language}
+                  {project.languages && project.languages.map((lang) => (
+                    <span key={lang} className="px-2.5 py-1 rounded-md text-[10px] tracking-wider uppercase bg-cyan/10 border border-cyan/30 text-cyan font-bold" style={{ fontFamily: "var(--font-mono)" }}>
+                      {lang}
                     </span>
-                  )}
+                  ))}
                   {project.techStack.map((tech) => (
                     <span key={tech} className="px-2.5 py-1 rounded-md text-[10px] tracking-wider uppercase glass-light text-cyan-dim" style={{ fontFamily: "var(--font-mono)" }}>{tech}</span>
                   ))}

@@ -127,9 +127,9 @@ export default function PilotProfile() {
 
               <div className="space-y-4 mb-8">
                 {/* Info Items */}
-                <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 pb-4 border-b border-white/5">
-                  <div className="w-32 flex items-center gap-2 text-text-muted text-xs tracking-widest uppercase font-mono">
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 pb-4 border-b border-white/5 group/item">
+                  <div className="w-32 flex items-center gap-2 text-cyan-dim text-xs tracking-widest uppercase font-mono group-hover/item:text-cyan transition-colors">
+                    <svg className="w-4 h-4 text-cyan/70 group-hover/item:text-cyan transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14l9-5-9-5-9 5 9 5z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14l9-5-9-5-9 5 9 5z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14l9-5-9-5-9 5 9 5z" />
@@ -141,9 +141,9 @@ export default function PilotProfile() {
                   <div className="text-text-primary text-sm sm:text-base">{PILOT_PROFILE.education}</div>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 pb-4 border-b border-white/5">
-                  <div className="w-32 flex items-center gap-2 text-text-muted text-xs tracking-widest uppercase font-mono">
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 pb-4 border-b border-white/5 group/item">
+                  <div className="w-32 flex items-center gap-2 text-cyan-dim text-xs tracking-widest uppercase font-mono group-hover/item:text-cyan transition-colors">
+                    <svg className="w-4 h-4 text-cyan/70 group-hover/item:text-cyan transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
@@ -152,14 +152,14 @@ export default function PilotProfile() {
                   <div className="text-text-primary text-sm sm:text-base">{PILOT_PROFILE.location}</div>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 pb-4 border-b border-white/5">
-                  <div className="w-32 flex items-center gap-2 text-text-muted text-xs tracking-widest uppercase font-mono">
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 pb-4 border-b border-white/5 group/item">
+                  <div className="w-32 flex items-center gap-2 text-cyan-dim text-xs tracking-widest uppercase font-mono group-hover/item:text-cyan transition-colors">
+                    <svg className="w-4 h-4 text-cyan/70 group-hover/item:text-cyan transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                     Comms
                   </div>
-                  <div className="text-cyan text-sm sm:text-base hover:text-cyan-dim transition-colors">
+                  <div className="text-cyan text-sm sm:text-base hover:text-cyan-dim transition-colors glow-text-cyan/20">
                     <a href={`mailto:${PILOT_PROFILE.email}`}>{PILOT_PROFILE.email}</a>
                   </div>
                 </div>

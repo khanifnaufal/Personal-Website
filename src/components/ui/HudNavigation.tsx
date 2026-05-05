@@ -68,7 +68,7 @@ export default function HudNavigation() {
             {/* Logo / call sign */}
             <button
               onClick={() => scrollToSection("base-station")}
-              className="flex items-center gap-2 group"
+              className="flex items-center gap-2 group md:hidden"
             >
               <div className="relative w-8 h-8 rounded-full overflow-hidden border border-cyan/30 group-hover:border-cyan transition-colors">
                 <Image
@@ -97,7 +97,7 @@ export default function HudNavigation() {
 
             {/* Desktop Nav */}
             <div className="hidden md:flex items-center gap-1">
-              <span className="text-text-muted text-xs ml-2 mr-1" style={{ fontFamily: "var(--font-mono)" }}>
+              <span className="text-text-muted text-xs ml-2 mr-3" style={{ fontFamily: "var(--font-mono)" }}>
                 NAV://
               </span>
               {NAV_LINKS.map((link, i) => (
