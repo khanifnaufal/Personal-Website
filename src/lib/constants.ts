@@ -75,8 +75,9 @@ export interface TimelineItem {
   title: string;
   organization: string;
   period: string;
-  description: string;
+  description: string | string[];
   tags?: string[];
+  link?: string;
 }
 
 export const HISTORY_CATEGORIES: { key: HistoryCategory; label: string; icon: string }[] = [
@@ -91,22 +92,29 @@ export const FLIGHT_HISTORY: TimelineItem[] = [
   {
     id: "WE_001",
     category: "work",
-    title: "Full-Stack Developer Intern",
-    organization: "PT Technology Solutions",
-    period: "Jun 2025 — Present",
-    description: "Developing and maintaining web applications using React, Next.js, and Laravel. Collaborated with cross-functional teams to deliver scalable solutions.",
-    tags: ["React", "Next.js", "Laravel", "PostgreSQL"],
+    title: "Web Developer Intern",
+    organization: "Dinas Komunikasi dan Informatika Kota Semarang",
+    period: "May 2025 — Jun 2025",
+    description: [
+      "Developed a web-based daily task reporting system using PHP and Laravel.",
+      "Improved daily performance monitoring efficiency by implementing an automated photo-based reporting system, reducing the risk of attendance data manipulation.",
+      "Optimized database structure to accelerate monthly performance report retrieval."
+    ],
+    tags: ["PHP", "Laravel", "MySQL"],
   },
   {
     id: "WE_002",
     category: "work",
-    title: "Freelance Web Developer",
-    organization: "Self-Employed",
-    period: "Jan 2024 — May 2025",
-    description: "Built custom web applications for clients including e-commerce platforms, landing pages, and dashboard systems with modern tech stacks.",
-    tags: ["React", "TypeScript", "Tailwind CSS", "Node.js"],
+    title: "Ketua KPPS",
+    organization: "Komisi Pemilihan Umum (KPU)",
+    period: "Dec 2023 — Feb 2024",
+    description: [
+      "Led and supervised the voting and vote-counting process for 222 voters, ensuring a smooth and orderly election process.",
+      "Managed and secured 1,110 ballots in full compliance with official election procedures and regulations.",
+      "Prepared and submitted administrative reports accurately and on time, ensuring data integrity and accountability."
+    ],
+    tags: ["Leadership", "Management", "Reporting"],
   },
-
   // Academic Background
   {
     id: "AC_001",
@@ -114,7 +122,7 @@ export const FLIGHT_HISTORY: TimelineItem[] = [
     title: "S1 Teknik Informatika",
     organization: "Universitas Dian Nuswantoro",
     period: "Sep 2022 — Feb 2026",
-    description: "Bachelor of Computer Science with focus on software engineering and machine learning. GPA: 3.90/4.00.",
+    description: "Bachelor of Computer Science with focus on Fullstack Developer and machine learning. GPA: 3.90/4.00.",
     tags: ["Computer Science", "GPA 3.90"],
   },
 
@@ -122,31 +130,54 @@ export const FLIGHT_HISTORY: TimelineItem[] = [
   {
     id: "CE_001",
     category: "certification",
-    title: "TensorFlow Developer Certificate",
-    organization: "Google",
+    title: "Getting Started with Deep Learning",
+    organization: "NVIDIA",
     period: "2025",
-    description: "Professional certification demonstrating proficiency in building and training neural networks using TensorFlow for real-world ML applications.",
-    tags: ["Machine Learning", "TensorFlow", "Deep Learning"],
+    description: "Professional certification covering the fundamentals of deep learning, including training and deploying neural networks.",
+    tags: ["Deep Learning", "NVIDIA", "AI"],
+    link: "https://drive.google.com/file/d/1iMfMUMIkDcoFy9_QDnabI5ZSJzl3ffCU/view?usp=sharing",
   },
   {
     id: "CE_002",
     category: "certification",
-    title: "AWS Cloud Practitioner",
-    organization: "Amazon Web Services",
-    period: "2024",
-    description: "Foundational understanding of AWS Cloud services, architecture, pricing, and support models.",
-    tags: ["Cloud Computing", "AWS", "Infrastructure"],
+    title: "Associate Data Scientist",
+    organization: "BNSP (Badan Nasional Sertifikasi Profesi)",
+    period: "2026",
+    description: "National competency certification in the field of data science, validating skills in data analysis, modeling, and visualization.",
+    tags: ["Data Science", "BNSP", "Analytics"],
+    link: "https://drive.google.com/file/d/1B8UEYXPp9RLJttzgHQWBxs1BgfOjFKfO/view?usp=drive_link",
+  },
+  {
+    id: "CE_003",
+    category: "certification",
+    title: "TOEFL Certification",
+    organization: "ETS / Verified Institution",
+    period: "2026",
+    description: "Standardized test to measure the English language ability of non-native speakers wishing to enroll in English-speaking universities.",
+    tags: ["English", "Language Proficiency", "TOEFL"],
+    link: "https://drive.google.com/file/d/1EeydCLCY3twvnjBeZFh78_uXcpfCaK5a/view?usp=drive_link",
   },
 
   // Academic Research
   {
     id: "RE_001",
     category: "research",
-    title: "Deep Learning Approach for Sentiment Analysis on Indonesian Text",
-    organization: "Universitas Dian Nuswantoro",
+    title: "A Convolutional Network-Based Comparative Analysis of DenseNet201, VGG16, and MobileNetV2 for Mushroom Classification",
+    organization: "Scopus Q4 Indexed Journal",
     period: "2025",
-    description: "Research on applying LSTM and Transformer-based models for sentiment classification in Bahasa Indonesia social media data.",
-    tags: ["NLP", "Deep Learning", "LSTM", "Transformers"],
+    description: "A comprehensive comparative study on various CNN architectures for accurate mushroom species classification, published in an IEEE-indexed journal.",
+    tags: ["Scopus Q4", "Deep Learning", "CNN", "Image Classification"],
+    link: "https://ieeexplore.ieee.org/document/11291885",
+  },
+  {
+    id: "RE_002",
+    category: "research",
+    title: "Performance Enhancement of Mushroom Species Classification via Modified InceptionV3",
+    organization: "SINTA 3 Accredited Journal",
+    period: "2025",
+    description: "Research focusing on optimizing the InceptionV3 architecture to improve accuracy in classifying mushroom species, published in Jurnal Masyarakat Informatika (JMASIF).",
+    tags: ["SINTA 3", "InceptionV3", "Deep Learning", "Agriculture AI"],
+    link: "https://ejournal.undip.ac.id/index.php/jmasif/article/view/73005/29984",
   },
 ];
 

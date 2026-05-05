@@ -34,11 +34,10 @@ export default function FlightHistory() {
         <div className="flex flex-wrap justify-center gap-3 mb-16">
           <button
             onClick={() => setActiveFilter("all")}
-            className={`px-5 py-2 rounded-full text-xs tracking-wider uppercase transition-all duration-300 ${
-              activeFilter === "all"
+            className={`px-5 py-2 rounded-full text-xs tracking-wider uppercase transition-all duration-300 ${activeFilter === "all"
                 ? "bg-cyan/20 border border-cyan/50 text-cyan shadow-[0_0_15px_rgba(0,240,255,0.2)]"
                 : "glass-light text-text-secondary hover:text-text-primary hover:border-cyan/30"
-            }`}
+              }`}
             style={{ fontFamily: "var(--font-mono), monospace" }}
           >
             All Logs
@@ -47,11 +46,10 @@ export default function FlightHistory() {
             <button
               key={cat.key}
               onClick={() => setActiveFilter(cat.key)}
-              className={`px-5 py-2 rounded-full text-xs tracking-wider uppercase transition-all duration-300 flex items-center gap-2 ${
-                activeFilter === cat.key
+              className={`px-5 py-2 rounded-full text-xs tracking-wider uppercase transition-all duration-300 flex items-center gap-2 ${activeFilter === cat.key
                   ? "bg-purple/20 border border-purple/50 text-purple shadow-[0_0_15px_rgba(123,47,255,0.2)]"
                   : "glass-light text-text-secondary hover:text-text-primary hover:border-purple/30"
-              }`}
+                }`}
               style={{ fontFamily: "var(--font-mono), monospace" }}
             >
               <span>{cat.icon}</span>
@@ -79,9 +77,8 @@ export default function FlightHistory() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
                     transition={{ duration: 0.5, ease: "easeOut" }}
-                    className={`relative flex flex-col md:flex-row items-start md:items-center ${
-                      isLeft ? "md:justify-start" : "md:justify-end"
-                    } pl-16 md:pl-0`}
+                    className={`relative flex flex-col md:flex-row items-start md:items-center ${isLeft ? "md:justify-start" : "md:justify-end"
+                      } pl-16 md:pl-0`}
                   >
                     {/* Dot on the timeline */}
                     <div className="absolute left-[20px] md:left-1/2 w-4 h-4 rounded-full bg-space-black border-2 border-cyan shadow-[0_0_10px_rgba(0,240,255,0.5)] -translate-x-1/2 z-10 flex items-center justify-center">
@@ -90,15 +87,13 @@ export default function FlightHistory() {
 
                     {/* Content Card */}
                     <div
-                      className={`glass-card rounded-2xl p-6 w-full md:w-[45%] relative group hud-bracket ${
-                        isLeft ? "border-cyan/20" : "border-purple/20"
-                      }`}
+                      className={`glass-card rounded-2xl p-6 w-full md:w-[45%] relative group hud-bracket ${isLeft ? "border-cyan/20" : "border-purple/20"
+                        }`}
                     >
                       {/* Connection line for desktop */}
                       <div
-                        className={`hidden md:block absolute top-1/2 w-[10%] h-[1px] bg-border -translate-y-1/2 ${
-                          isLeft ? "-right-[10%]" : "-left-[10%]"
-                        }`}
+                        className={`hidden md:block absolute top-1/2 w-[10%] h-[1px] bg-border -translate-y-1/2 ${isLeft ? "-right-[10%]" : "-left-[10%]"
+                          }`}
                       />
 
                       {/* Header (ID + Icon) */}
@@ -116,9 +111,8 @@ export default function FlightHistory() {
 
                       {/* Title & Org */}
                       <h3
-                        className={`text-xl font-bold mb-1 ${
-                          isLeft ? "text-cyan group-hover:glow-text-cyan" : "text-purple group-hover:glow-text-purple"
-                        } transition-all duration-300`}
+                        className={`text-xl font-bold mb-1 ${isLeft ? "text-cyan group-hover:glow-text-cyan" : "text-purple group-hover:glow-text-purple"
+                          } transition-all duration-300`}
                         style={{ fontFamily: "var(--font-heading), sans-serif" }}
                       >
                         {item.title}
@@ -134,26 +128,56 @@ export default function FlightHistory() {
                       </p>
 
                       {/* Description */}
-                      <p className="text-text-secondary text-sm leading-relaxed mb-5">
-                        {item.description}
-                      </p>
+                      <div className="text-text-secondary text-sm leading-relaxed mb-5">
+                        {Array.isArray(item.description) ? (
+                          <ul className="space-y-2 list-none">
+                            {item.description.map((point, i) => (
+                              <li key={i} className="flex gap-2">
+                                <span className={`flex-shrink-0 mt-1.5 w-1.5 h-1.5 rounded-full ${isLeft ? "bg-cyan" : "bg-purple"} opacity-60`} />
+                                <span>{point}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p>{item.description}</p>
+                        )}
+                      </div>
 
-                      {/* Tags */}
-                      {item.tags && item.tags.length > 0 && (
-                        <div className="flex flex-wrap gap-2">
-                          {item.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className={`px-2.5 py-1 rounded-md text-[10px] tracking-wider uppercase glass-light ${
-                                isLeft ? "text-cyan-dim" : "text-purple"
+                      {/* Tags & Action */}
+                      <div className="flex flex-wrap items-center justify-between gap-4">
+                        {item.tags && item.tags.length > 0 && (
+                          <div className="flex flex-wrap gap-2">
+                            {item.tags.map((tag) => (
+                              <span
+                                key={tag}
+                                className={`px-2.5 py-1 rounded-md text-[10px] tracking-wider uppercase glass-light ${isLeft ? "text-cyan-dim" : "text-purple"
+                                  }`}
+                                style={{ fontFamily: "var(--font-mono)" }}
+                              >
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+
+                        {item.link && (
+                          <a
+                            href={item.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-[10px] tracking-[0.15em] uppercase font-bold transition-all duration-300 border ${isLeft
+                                ? "border-cyan/30 text-cyan hover:bg-cyan/10 hover:border-cyan"
+                                : "border-purple/30 text-purple hover:bg-purple/10 hover:border-purple"
                               }`}
-                              style={{ fontFamily: "var(--font-mono)" }}
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      )}
+                            style={{ fontFamily: "var(--font-mono)" }}
+                          >
+                            <span>View</span>
+                            <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </motion.div>
                 );

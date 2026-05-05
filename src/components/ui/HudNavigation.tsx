@@ -97,7 +97,7 @@ export default function HudNavigation() {
 
             {/* Desktop Nav */}
             <div className="hidden md:flex items-center gap-1">
-              <span className="text-text-muted text-xs mr-3" style={{ fontFamily: "var(--font-mono)" }}>
+              <span className="text-text-muted text-xs ml-2 mr-1" style={{ fontFamily: "var(--font-mono)" }}>
                 NAV://
               </span>
               {NAV_LINKS.map((link, i) => (
