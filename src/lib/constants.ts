@@ -12,13 +12,17 @@ export const NAV_LINKS = [
 
 export const PILOT_PROFILE = {
   name: "Muhammad Khanif Naufal",
-  photo: "/profile.jpg",
+  photo: "/profile.jpeg",
   education: "Universitas Dian Nuswantoro — S1 Teknik Informatika, 2026",
   email: "mkhanif86@gmail.com",
   location: "Semarang, Indonesia",
   status: "Open to Work" as const,
   motto: "You may break all my bones but my soul will be more than enough to get me on my feet.",
   bio: "Building the future through code and intelligence. Specializing in full-stack web development and machine learning engineering.",
+  links: {
+    github: "https://github.com/khanifnaufal",
+    linkedin: "https://www.linkedin.com/in/khanif-naufal/",
+  },
 };
 
 // ============================================
