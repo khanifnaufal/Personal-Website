@@ -22,6 +22,8 @@ export const PILOT_PROFILE = {
   links: {
     github: "https://github.com/khanifnaufal",
     linkedin: "https://www.linkedin.com/in/khanif-naufal/",
+    instagram: "https://instagram.com/khanifnaufal",
+    whatsapp: "https://wa.me/6285293522186",
   },
 };
 

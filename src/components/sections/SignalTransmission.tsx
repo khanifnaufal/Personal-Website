@@ -1,44 +1,70 @@
 "use client";
 
-import { useActionState } from "react";
-import { useFormStatus } from "react-dom";
-import { motion, AnimatePresence } from "framer-motion";
-import { submitContact } from "@/app/actions/contact";
+import { motion } from "framer-motion";
+import { PILOT_PROFILE } from "@/lib/constants";
 import SectionWrapper from "@/components/ui/SectionWrapper";
-import type { ContactFormState } from "@/lib/schemas";
 
-function SubmitButton() {
-  const { pending } = useFormStatus();
-  return (
-    <button
-      type="submit"
-      disabled={pending}
-      className="w-full py-4 rounded-xl font-bold text-sm tracking-[0.15em] uppercase disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
-      style={{
-        fontFamily: "var(--font-heading), sans-serif",
-        background: "linear-gradient(135deg, #4f46e5, #7c3aed, #a855f7)",
-        color: "#ffffff",
-        boxShadow: "0 0 30px rgba(124, 58, 237, 0.4), 0 0 60px rgba(124, 58, 237, 0.15)",
-      }}
-    >
-      {pending ? (
-        <>
-          <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
-            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-          </svg>
-          Transmitting...
-        </>
-      ) : (
-        "⚡ Transmit Signal"
-      )}
-    </button>
-  );
-}
+const SOCIAL_CHANNELS = [
+  {
+    id: "email",
+    label: "Email",
+    value: PILOT_PROFILE.email,
+    link: `mailto:${PILOT_PROFILE.email}`,
+    icon: (
+      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+      </svg>
+    ),
+    color: "cyan",
+  },
+  {
+    id: "linkedin",
+    label: "LinkedIn",
+    value: "Khanif Naufal",
+    link: PILOT_PROFILE.links.linkedin,
+    icon: (
+      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+      </svg>
+    ),
+    color: "purple",
+  },
+  {
+    id: "instagram",
+    label: "Instagram",
+    value: "@khanifnaufal",
+    link: PILOT_PROFILE.links.instagram,
+    icon: (
+      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+        <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" />
+        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+      </svg>
+    ),
+    color: "magenta",
+  },
+  {
+    id: "whatsapp",
+    label: "WhatsApp",
+    value: "Secure Channel",
+    link: PILOT_PROFILE.links.whatsapp,
+    icon: (
+      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+      </svg>
+    ),
+    color: "green",
+  },
+];
+
+const colorVariants: Record<string, string> = {
+  cyan: "from-cyan/20 to-cyan/5 border-cyan/30 text-cyan hover:border-cyan hover:shadow-[0_0_20px_rgba(0,240,255,0.2)]",
+  purple: "from-purple/20 to-purple/5 border-purple/30 text-purple hover:border-purple hover:shadow-[0_0_20px_rgba(124,58,237,0.2)]",
+  magenta: "from-magenta/20 to-magenta/5 border-magenta/30 text-magenta hover:border-magenta hover:shadow-[0_0_20px_rgba(255,0,229,0.2)]",
+  green: "from-green-500/20 to-green-500/5 border-green-500/30 text-green-400 hover:border-green-500 hover:shadow-[0_0_20px_rgba(34,197,94,0.2)]",
+};
 
 export default function SignalTransmission() {
-  const [state, formAction] = useActionState<ContactFormState, FormData>(submitContact, null);
-
   return (
     <SectionWrapper id="signal-transmission" label="SIGNAL_TRANSMISSION">
       <div className="text-center mb-16">
@@ -52,210 +78,48 @@ export default function SignalTransmission() {
         </h2>
         <div className="w-24 h-[1px] mx-auto bg-gradient-to-r from-transparent via-magenta to-transparent" />
         <p className="mt-4 text-text-secondary text-sm md:text-base max-w-xl mx-auto">
-          Open a communication channel. All transmissions are encrypted and secure.
+          Established secure communication channels. Select a frequency to transmit your message.
         </p>
       </div>
 
-      <div className="max-w-2xl mx-auto">
-        {/* Status decorators */}
-        <div
-          className="flex items-center justify-between mb-6 text-[10px] tracking-[0.2em] uppercase text-text-muted"
-          style={{ fontFamily: "var(--font-mono)" }}
-        >
-          <span>FREQ: 42.7 GHz</span>
-          <span>CHANNEL: OPEN</span>
-          <span>LAT: -6.2° | LON: 106.8°</span>
-        </div>
-
-        {/* Form card — stronger visibility */}
-        <div
-          className="rounded-2xl p-8 md:p-10 relative"
-          style={{
-            background: "rgba(15, 10, 40, 0.85)",
-            backdropFilter: "blur(20px)",
-            border: "1px solid rgba(124, 58, 237, 0.35)",
-            boxShadow:
-              "0 0 40px rgba(124, 58, 237, 0.1), 0 0 80px rgba(79, 70, 229, 0.05), inset 0 1px 0 rgba(255,255,255,0.05)",
-          }}
-        >
-          {/* Corner decorators */}
-          <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-purple/50 rounded-tl-2xl" />
-          <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-purple/50 rounded-tr-2xl" />
-          <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-purple/50 rounded-bl-2xl" />
-          <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-purple/50 rounded-br-2xl" />
-
-          {/* Status message */}
-          <AnimatePresence mode="wait">
-            {state && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                className={`mb-6 p-4 rounded-xl text-sm font-medium ${
-                  state.success
-                    ? "bg-green-500/15 border border-green-500/30 text-green-400"
-                    : "bg-red-500/15 border border-red-500/30 text-red-400"
-                }`}
-                style={{ fontFamily: "var(--font-mono)" }}
-              >
-                {state.success ? "✓ " : "✗ "}
-                {state.message}
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          <form action={formAction} className="space-y-6">
-            {/* Name */}
-            <div>
-              <label
-                htmlFor="name"
-                className="block text-xs tracking-[0.15em] uppercase mb-2 font-medium"
-                style={{ fontFamily: "var(--font-mono)", color: "#c8c4d4" }}
-              >
-                Callsign (Name)
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                required
-                className="w-full px-4 py-3.5 rounded-xl text-sm text-text-primary placeholder-text-muted outline-none transition-all duration-300"
-                style={{
-                  fontFamily: "var(--font-mono), monospace",
-                  background: "rgba(20, 15, 50, 0.8)",
-                  border: "1px solid rgba(124, 58, 237, 0.3)",
-                }}
-                onFocus={(e) => {
-                  e.target.style.borderColor = "rgba(124, 58, 237, 0.7)";
-                  e.target.style.boxShadow = "0 0 20px rgba(124, 58, 237, 0.2), inset 0 0 20px rgba(124, 58, 237, 0.05)";
-                }}
-                onBlur={(e) => {
-                  e.target.style.borderColor = "rgba(124, 58, 237, 0.3)";
-                  e.target.style.boxShadow = "none";
-                }}
-                placeholder="Enter your callsign..."
-              />
-              {state?.errors?.name && (
-                <p className="mt-1.5 text-xs text-red-400">{state.errors.name[0]}</p>
-              )}
+      <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {SOCIAL_CHANNELS.map((channel, index) => (
+          <motion.a
+            key={channel.id}
+            href={channel.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            className={`flex items-center gap-6 p-6 rounded-2xl bg-gradient-to-br border transition-all duration-300 group ${colorVariants[channel.color]}`}
+          >
+            <div className={`p-4 rounded-xl bg-space-black border border-current flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}>
+              {channel.icon}
             </div>
-
-            {/* Email */}
             <div>
-              <label
-                htmlFor="email"
-                className="block text-xs tracking-[0.15em] uppercase mb-2 font-medium"
-                style={{ fontFamily: "var(--font-mono)", color: "#c8c4d4" }}
-              >
-                Frequency (Email)
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                required
-                className="w-full px-4 py-3.5 rounded-xl text-sm text-text-primary placeholder-text-muted outline-none transition-all duration-300"
-                style={{
-                  fontFamily: "var(--font-mono), monospace",
-                  background: "rgba(20, 15, 50, 0.8)",
-                  border: "1px solid rgba(124, 58, 237, 0.3)",
-                }}
-                onFocus={(e) => {
-                  e.target.style.borderColor = "rgba(124, 58, 237, 0.7)";
-                  e.target.style.boxShadow = "0 0 20px rgba(124, 58, 237, 0.2), inset 0 0 20px rgba(124, 58, 237, 0.05)";
-                }}
-                onBlur={(e) => {
-                  e.target.style.borderColor = "rgba(124, 58, 237, 0.3)";
-                  e.target.style.boxShadow = "none";
-                }}
-                placeholder="your@frequency.com"
-              />
-              {state?.errors?.email && (
-                <p className="mt-1.5 text-xs text-red-400">{state.errors.email[0]}</p>
-              )}
+              <p className="text-[10px] tracking-[0.2em] uppercase opacity-70 mb-1" style={{ fontFamily: "var(--font-mono)" }}>
+                {channel.label} CHANNEL
+              </p>
+              <p className="text-lg font-bold text-text-primary" style={{ fontFamily: "var(--font-heading)" }}>
+                {channel.value}
+              </p>
             </div>
-
-            {/* Subject */}
-            <div>
-              <label
-                htmlFor="subject"
-                className="block text-xs tracking-[0.15em] uppercase mb-2 font-medium"
-                style={{ fontFamily: "var(--font-mono)", color: "#c8c4d4" }}
-              >
-                Signal Type (Subject)
-              </label>
-              <input
-                type="text"
-                id="subject"
-                name="subject"
-                required
-                className="w-full px-4 py-3.5 rounded-xl text-sm text-text-primary placeholder-text-muted outline-none transition-all duration-300"
-                style={{
-                  fontFamily: "var(--font-mono), monospace",
-                  background: "rgba(20, 15, 50, 0.8)",
-                  border: "1px solid rgba(124, 58, 237, 0.3)",
-                }}
-                onFocus={(e) => {
-                  e.target.style.borderColor = "rgba(124, 58, 237, 0.7)";
-                  e.target.style.boxShadow = "0 0 20px rgba(124, 58, 237, 0.2), inset 0 0 20px rgba(124, 58, 237, 0.05)";
-                }}
-                onBlur={(e) => {
-                  e.target.style.borderColor = "rgba(124, 58, 237, 0.3)";
-                  e.target.style.boxShadow = "none";
-                }}
-                placeholder="Transmission subject..."
-              />
-              {state?.errors?.subject && (
-                <p className="mt-1.5 text-xs text-red-400">{state.errors.subject[0]}</p>
-              )}
+            <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
             </div>
+          </motion.a>
+        ))}
+      </div>
 
-            {/* Message */}
-            <div>
-              <label
-                htmlFor="message"
-                className="block text-xs tracking-[0.15em] uppercase mb-2 font-medium"
-                style={{ fontFamily: "var(--font-mono)", color: "#c8c4d4" }}
-              >
-                Payload (Message)
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                required
-                rows={5}
-                className="w-full px-4 py-3.5 rounded-xl text-sm text-text-primary placeholder-text-muted outline-none transition-all duration-300 resize-none"
-                style={{
-                  fontFamily: "var(--font-mono), monospace",
-                  background: "rgba(20, 15, 50, 0.8)",
-                  border: "1px solid rgba(124, 58, 237, 0.3)",
-                }}
-                onFocus={(e) => {
-                  e.target.style.borderColor = "rgba(124, 58, 237, 0.7)";
-                  e.target.style.boxShadow = "0 0 20px rgba(124, 58, 237, 0.2), inset 0 0 20px rgba(124, 58, 237, 0.05)";
-                }}
-                onBlur={(e) => {
-                  e.target.style.borderColor = "rgba(124, 58, 237, 0.3)";
-                  e.target.style.boxShadow = "none";
-                }}
-                placeholder="Enter your transmission..."
-              />
-              {state?.errors?.message && (
-                <p className="mt-1.5 text-xs text-red-400">{state.errors.message[0]}</p>
-              )}
-            </div>
-
-            <SubmitButton />
-          </form>
-        </div>
-
-        {/* Transmission status footer */}
-        <div
-          className="mt-4 text-center text-[10px] tracking-[0.2em] uppercase text-text-muted"
-          style={{ fontFamily: "var(--font-mono)" }}
-        >
-          ◉ ENCRYPTION: AES-256 | STATUS: SECURE
-        </div>
+      <div
+        className="mt-12 text-center text-[10px] tracking-[0.2em] uppercase text-text-muted"
+        style={{ fontFamily: "var(--font-mono)" }}
+      >
+        ◉ ALL TRANSMISSIONS ARE ENCRYPTED | STATUS: SECURE
       </div>
     </SectionWrapper>
   );

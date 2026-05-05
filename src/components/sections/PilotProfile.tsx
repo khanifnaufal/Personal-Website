@@ -53,7 +53,7 @@ export default function PilotProfile() {
                       alt={PILOT_PROFILE.name}
                       width={192}
                       height={192}
-                      className="rounded-full object-cover w-full h-full"
+                      className="rounded-full object-cover object-[center_20%] w-full h-full"
                       priority
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;

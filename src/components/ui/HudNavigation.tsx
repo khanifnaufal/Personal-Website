@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { NAV_LINKS } from "@/lib/constants";
+import Image from "next/image";
+import { NAV_LINKS, PILOT_PROFILE } from "@/lib/constants";
 
 export default function HudNavigation() {
   const [activeSection, setActiveSection] = useState("base-station");
@@ -63,48 +64,66 @@ export default function HudNavigation() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          {/* Logo / call sign */}
-          <button
-            onClick={() => scrollToSection("base-station")}
-            className="flex items-center gap-3 group"
-          >
-            <div className="w-2 h-2 rounded-full bg-cyan animate-pulse-glow" />
-            <span
-              className="text-sm tracking-[0.2em] uppercase text-text-primary group-hover:text-cyan transition-colors"
-              style={{ fontFamily: "var(--font-heading), sans-serif" }}
+          <div className="flex items-center gap-0.75">
+            {/* Logo / call sign */}
+            <button
+              onClick={() => scrollToSection("base-station")}
+              className="flex items-center gap-2 group"
             >
-              MKN
-            </span>
-          </button>
-
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-1">
-            <span className="text-text-muted text-xs mr-3" style={{ fontFamily: "var(--font-mono)" }}>
-              NAV://
-            </span>
-            {NAV_LINKS.map((link, i) => (
-              <button
-                key={link.id}
-                onClick={() => scrollToSection(link.sectionId)}
-                className={`relative px-4 py-2 text-xs tracking-[0.15em] uppercase transition-all duration-300 rounded ${
-                  activeSection === link.sectionId
-                    ? "text-cyan"
-                    : "text-text-secondary hover:text-text-primary"
-                }`}
-                style={{ fontFamily: "var(--font-mono), monospace" }}
+              <div className="relative w-8 h-8 rounded-full overflow-hidden border border-cyan/30 group-hover:border-cyan transition-colors">
+                <Image
+                  src={PILOT_PROFILE.photo}
+                  alt={PILOT_PROFILE.name}
+                  width={32}
+                  height={32}
+                  className="object-cover object-[center_20%] w-full h-full"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = "none";
+                    const parent = target.parentElement;
+                    if (parent) {
+                      parent.innerHTML = `<div class="w-full h-full flex items-center justify-center bg-cyan/10 text-[8px] font-bold text-cyan">KN</div>`;
+                    }
+                  }}
+                />
+              </div>
+              <span
+                className="text-xs md:text-sm tracking-[0.15em] uppercase text-text-primary group-hover:text-cyan transition-colors"
+                style={{ fontFamily: "var(--font-heading), sans-serif" }}
               >
-                {activeSection === link.sectionId && (
-                  <motion.div
-                    layoutId="activeNav"
-                    className="absolute inset-0 rounded glass-light"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
-                <span className="relative z-10">
-                  [{String(i + 1).padStart(2, "0")}] {link.label}
-                </span>
-              </button>
-            ))}
+                Khanif Naufal
+              </span>
+            </button>
+
+            {/* Desktop Nav */}
+            <div className="hidden md:flex items-center gap-1">
+              <span className="text-text-muted text-xs mr-3" style={{ fontFamily: "var(--font-mono)" }}>
+                NAV://
+              </span>
+              {NAV_LINKS.map((link, i) => (
+                <button
+                  key={link.id}
+                  onClick={() => scrollToSection(link.sectionId)}
+                  className={`relative px-4 py-2 text-xs tracking-[0.15em] uppercase transition-all duration-300 rounded ${
+                    activeSection === link.sectionId
+                      ? "text-cyan"
+                      : "text-text-secondary hover:text-text-primary"
+                  }`}
+                  style={{ fontFamily: "var(--font-mono), monospace" }}
+                >
+                  {activeSection === link.sectionId && (
+                    <motion.div
+                      layoutId="activeNav"
+                      className="absolute inset-0 rounded glass-light"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                  <span className="relative z-10">
+                    [{String(i + 1).padStart(2, "0")}] {link.label}
+                  </span>
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Status indicator */}
