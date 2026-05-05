@@ -1,26 +1,398 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ============================================
+   INTERSTELLAR COMMAND CENTER — Design System
+   ============================================ */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Color Palette */
+  --color-space-black: #030014;
+  --color-space-deep: #0a0520;
+  --color-space-surface: rgba(255, 255, 255, 0.03);
+
+  --color-cyan: #00f0ff;
+  --color-cyan-dim: #00a8b3;
+  --color-purple: #7b2fff;
+  --color-purple-dim: #5a1fbf;
+  --color-magenta: #ff00e5;
+  --color-magenta-dim: #b300a0;
+
+  --color-text-primary: #e8e8ff;
+  --color-text-secondary: #c8c4d4;
+  --color-text-muted: #555577;
+
+  --color-border: rgba(0, 240, 255, 0.12);
+  --color-border-hover: rgba(0, 240, 255, 0.3);
+
+  /* Fonts */
+  --font-heading: var(--font-orbitron);
+  --font-body: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
+
+  /* Spacing / Sizing */
+  --section-padding: 6rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ============================================
+   Base Styles
+   ============================================ */
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-space-black);
+  color: var(--color-text-primary);
+  font-family: var(--font-body), system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(0, 240, 255, 0.25);
+  color: #ffffff;
+}
+
+/* ============================================
+   Custom Scrollbar
+   ============================================ */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-space-black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, var(--color-cyan-dim), var(--color-purple-dim));
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, var(--color-cyan), var(--color-purple));
+}
+
+/* ============================================
+   Glassmorphism Utility
+   ============================================ */
+
+.glass {
+  background: rgba(10, 5, 32, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--color-border);
+}
+
+.glass-light {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.glass-card {
+  background: rgba(10, 5, 32, 0.5);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--color-border);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+  border-color: var(--color-border-hover);
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.06), inset 0 0 30px rgba(0, 240, 255, 0.02);
+}
+
+/* ============================================
+   Glow Effects
+   ============================================ */
+
+.glow-cyan {
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.3), 0 0 40px rgba(0, 240, 255, 0.1);
+}
+
+.glow-purple {
+  box-shadow: 0 0 15px rgba(123, 47, 255, 0.3), 0 0 40px rgba(123, 47, 255, 0.1);
+}
+
+.glow-text-cyan {
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.5), 0 0 30px rgba(0, 240, 255, 0.2);
+}
+
+.glow-text-purple {
+  text-shadow: 0 0 10px rgba(123, 47, 255, 0.5), 0 0 30px rgba(123, 47, 255, 0.2);
+}
+
+/* ============================================
+   Gradient Utilities
+   ============================================ */
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-cyan) 0%, var(--color-purple) 50%, var(--color-magenta) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Animated galaxy gradient for headings */
+.galaxy-text {
+  background: linear-gradient(
+    270deg,
+    #4f46e5,
+    #7c3aed,
+    #a855f7,
+    #6366f1,
+    #818cf8,
+    #c084fc,
+    #7c3aed,
+    #4f46e5
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: galaxy-shift 6s ease-in-out infinite;
+}
+
+@keyframes galaxy-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ============================================
+   Marquee / Horizontal Scroll
+   ============================================ */
+
+.marquee-track {
+  display: flex;
+  gap: 1.25rem;
+  width: max-content;
+  animation: marquee-scroll 40s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.marquee-reverse {
+  animation-direction: reverse;
+}
+
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.gradient-border {
+  position: relative;
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--color-cyan), var(--color-purple));
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  pointer-events: none;
+}
+
+/* ============================================
+   HUD Decorators
+   ============================================ */
+
+.hud-bracket {
+  position: relative;
+}
+
+.hud-bracket::before,
+.hud-bracket::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: var(--color-cyan);
+  opacity: 0.4;
+}
+
+.hud-bracket::before {
+  top: -1px;
+  left: -1px;
+  border-top: 1px solid;
+  border-left: 1px solid;
+}
+
+.hud-bracket::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 1px solid;
+  border-right: 1px solid;
+}
+
+/* ============================================
+   Scanline Overlay (subtle)
+   ============================================ */
+
+.scanlines::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 240, 255, 0.01) 2px,
+    rgba(0, 240, 255, 0.01) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ============================================
+   Pulse Animation
+   ============================================ */
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+  }
+  50% {
+    opacity: 0.7;
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* ============================================
+   Section label decorator
+   ============================================ */
+
+.section-label {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.section-label::before {
+  content: "//";
+  position: absolute;
+  left: 0;
+  color: var(--color-cyan-dim);
+  opacity: 0.5;
+}
+
+/* ============================================
+   Input Styles
+   ============================================ */
+
+.input-hud {
+  background: rgba(10, 5, 32, 0.5);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  color: var(--color-text-primary);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+  outline: none;
+  width: 100%;
+}
+
+.input-hud:focus {
+  border-color: var(--color-cyan);
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.15), inset 0 0 15px rgba(0, 240, 255, 0.03);
+}
+
+.input-hud::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* ============================================
+   Button Styles
+   ============================================ */
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-cyan-dim), var(--color-purple-dim));
+  color: #ffffff;
+  font-family: var(--font-heading), sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 0 25px rgba(0, 240, 255, 0.3), 0 0 50px rgba(123, 47, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--color-cyan);
+  font-family: var(--font-heading), sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  border: 1px solid var(--color-border-hover);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+  background: rgba(0, 240, 255, 0.06);
+  border-color: var(--color-cyan);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
+  transform: translateY(-2px);
 }
