@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState, useMemo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { PROJECTS, type Project } from "@/lib/constants";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 
@@ -15,8 +16,29 @@ const cardVariants = {
 };
 
 export default function MissionLogs({ projects }: { projects?: Project[] }) {
+  const [activeFilter, setActiveFilter] = useState("All");
+
   // Use dynamic projects if available, otherwise fallback to static ones
   const displayProjects = projects && projects.length > 0 ? projects : PROJECTS;
+
+  // Extract unique top languages to use as filter categories
+  const filters = useMemo(() => {
+    const langs = new Set<string>();
+    displayProjects.forEach(p => {
+      if (p.languages && p.languages.length > 0) {
+        langs.add(p.languages[0]); // Use primary language for filter
+      }
+    });
+    // Add custom broad categories if needed, or just stick to languages.
+    // To ensure UI looks good, we'll limit to top 4-5 unique languages
+    const uniqueLangs = Array.from(langs).slice(0, 4);
+    return ["All", ...uniqueLangs];
+  }, [displayProjects]);
+
+  const filteredProjects = useMemo(() => {
+    if (activeFilter === "All") return displayProjects;
+    return displayProjects.filter(p => p.languages && p.languages.includes(activeFilter));
+  }, [displayProjects, activeFilter]);
 
   return (
     <SectionWrapper id="mission-logs" label="MISSION_LOGS">
@@ -25,14 +47,42 @@ export default function MissionLogs({ projects }: { projects?: Project[] }) {
           <span className="text-text-muted">[</span> <span className="galaxy-text">Mission Logs</span> <span className="text-text-muted">]</span>
         </h2>
         <div className="w-24 h-[1px] mx-auto bg-gradient-to-r from-transparent via-purple to-transparent" />
-        <p className="mt-4 text-text-secondary text-sm md:text-base max-w-xl mx-auto">
+        <p className="mt-4 text-text-secondary text-sm md:text-base max-w-xl mx-auto mb-8">
           A collection of completed missions and ongoing operations.
         </p>
+
+        {/* Filter Buttons */}
+        <div className="flex flex-wrap justify-center gap-3">
+          {filters.map((filter) => (
+            <button
+              key={filter}
+              onClick={() => setActiveFilter(filter)}
+              className={`px-4 py-1.5 rounded-full text-xs tracking-widest uppercase transition-all duration-300 ${
+                activeFilter === filter
+                  ? "bg-cyan/20 border border-cyan text-cyan glow-text-cyan/50"
+                  : "glass-card border border-white/10 text-text-secondary hover:text-text-primary hover:border-cyan/30"
+              }`}
+              style={{ fontFamily: "var(--font-mono), monospace" }}
+            >
+              {filter}
+            </button>
+          ))}
+        </div>
       </div>
 
       <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.1 }} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-        {displayProjects.map((project) => (
-          <motion.div key={project.id} variants={cardVariants} className="glass-card rounded-2xl overflow-hidden group relative">
+        <AnimatePresence mode="popLayout">
+          {filteredProjects.map((project) => (
+            <motion.div 
+              key={project.id} 
+              variants={cardVariants}
+              layout
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.4 }}
+              className="glass-card rounded-2xl overflow-hidden group relative flex flex-col"
+            >
             <div className="relative h-48 overflow-hidden bg-space-black/50">
               {/* Background Glow */}
               <div className="absolute inset-0 bg-gradient-to-br from-cyan/10 via-purple/10 to-magenta/10 z-0" />
@@ -100,6 +150,7 @@ export default function MissionLogs({ projects }: { projects?: Project[] }) {
             </div>
           </motion.div>
         ))}
+        </AnimatePresence>
       </motion.div>
     </SectionWrapper>
   );

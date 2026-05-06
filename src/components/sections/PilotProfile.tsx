@@ -178,8 +178,33 @@ export default function PilotProfile() {
           </div>
         </motion.div>
 
+        {/* Telemetry Data (Highlight Metrics) */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20"
+        >
+          {[
+            { label: "Repositories", value: "31+", icon: "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" },
+            { label: "Years Coding", value: "4+", icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" },
+            { label: "Certifications", value: "3", icon: "M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" },
+            { label: "GPA", value: "3.90", icon: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" }
+          ].map((stat, idx) => (
+            <div key={idx} className="glass-card p-6 flex flex-col items-center justify-center text-center rounded-2xl group hover:border-cyan/30 transition-all duration-300 relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-t from-cyan/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <svg className="w-6 h-6 text-cyan/50 mb-3 group-hover:text-cyan group-hover:scale-110 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={stat.icon} />
+              </svg>
+              <span className="text-3xl font-bold galaxy-text mb-1" style={{ fontFamily: "var(--font-heading)" }}>{stat.value}</span>
+              <span className="text-[10px] tracking-widest uppercase text-text-secondary font-mono">{stat.label}</span>
+            </div>
+          ))}
+        </motion.div>
+
         {/* System Specs (Skills Marquee) */}
-        <div className="mt-20">
+        <div className="mt-10">
           <div className="text-center mb-12">
             <h3
               className="text-2xl font-bold mb-2 text-text-primary"

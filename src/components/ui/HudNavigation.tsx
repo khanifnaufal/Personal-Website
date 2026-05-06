@@ -63,9 +63,9 @@ export default function HudNavigation() {
           isScrolled ? "glass" : "bg-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between md:justify-center relative">
           <div className="flex items-center gap-0.75">
-            {/* Logo / call sign */}
+            {/* Logo / call sign - Visible only on mobile now */}
             <button
               onClick={() => scrollToSection("base-station")}
               className="flex items-center gap-2 group md:hidden"
@@ -95,9 +95,9 @@ export default function HudNavigation() {
               </span>
             </button>
 
-            {/* Desktop Nav */}
+            {/* Desktop Nav - Centered */}
             <div className="hidden md:flex items-center gap-1">
-              <span className="text-text-muted text-xs ml-2 mr-3" style={{ fontFamily: "var(--font-mono)" }}>
+              <span className="text-text-muted text-xs mr-3" style={{ fontFamily: "var(--font-mono)" }}>
                 NAV://
               </span>
               {NAV_LINKS.map((link, i) => (
@@ -126,8 +126,8 @@ export default function HudNavigation() {
             </div>
           </div>
 
-          {/* Status indicator */}
-          <div className="hidden md:flex items-center gap-2 text-text-muted text-xs" style={{ fontFamily: "var(--font-mono)" }}>
+          {/* Status indicator - Absolute on desktop to not interfere with centering */}
+          <div className="hidden md:flex items-center gap-2 text-text-muted text-xs md:absolute md:right-8" style={{ fontFamily: "var(--font-mono)" }}>
             <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
             <span>ONLINE</span>
           </div>
