@@ -48,12 +48,12 @@ export default function PilotProfile() {
               <div className="relative w-40 h-40 md:w-48 md:h-48 rounded-full mb-6 group">
                 <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan via-purple to-magenta p-[2px] transition-transform duration-500 group-hover:scale-105">
                   <div className="w-full h-full rounded-full bg-space-black flex items-center justify-center overflow-hidden relative">
+                    {/* Base Image */}
                     <Image
                       src={PILOT_PROFILE.photo}
                       alt={PILOT_PROFILE.name}
-                      width={192}
-                      height={192}
-                      className="rounded-full object-cover object-[center_20%] w-full h-full"
+                      fill
+                      className="object-cover object-[center_20%] filter contrast-125 saturate-50 group-hover:saturate-100 transition-all duration-700"
                       priority
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
@@ -64,6 +64,16 @@ export default function PilotProfile() {
                         }
                       }}
                     />
+
+                    {/* Glitch Layer 1 (Red Shift) */}
+                    <div className="absolute inset-0 pointer-events-none glitch-layer-1 mix-blend-screen opacity-0">
+                      <Image src={PILOT_PROFILE.photo} alt="" fill className="object-cover object-[center_20%] filter hue-rotate-90 contrast-200 brightness-110" priority />
+                    </div>
+                    
+                    {/* Glitch Layer 2 (Cyan Shift) */}
+                    <div className="absolute inset-0 pointer-events-none glitch-layer-2 mix-blend-screen opacity-0">
+                      <Image src={PILOT_PROFILE.photo} alt="" fill className="object-cover object-[center_20%] filter -hue-rotate-90 contrast-200 brightness-110" priority />
+                    </div>
                     <div className="absolute inset-0 bg-cyan/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 mix-blend-overlay" />
                   </div>
                 </div>

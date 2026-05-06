@@ -84,6 +84,9 @@ export function HolographicCore() {
   const ring1Ref = useRef<THREE.Mesh>(null!);
   const ring2Ref = useRef<THREE.Mesh>(null!);
   const { pointer } = useThree();
+  
+  const scrollVelocity = useRef(0);
+  const lastScrollY = useRef(0);
 
   const holoUniforms = useMemo(
     () => ({
@@ -111,10 +114,33 @@ export function HolographicCore() {
   );
 
   useFrame((_, delta) => {
-    const time = holoUniforms.uTime.value + delta;
+    // 1. Calculate scroll velocity for reactivity
+    const currentScrollY = window.scrollY;
+    const deltaY = currentScrollY - lastScrollY.current;
+    
+    // Smoothly decay or spike scroll velocity - amplify deltaY
+    scrollVelocity.current = THREE.MathUtils.lerp(
+      scrollVelocity.current,
+      deltaY * 5.0, 
+      0.1
+    );
+    lastScrollY.current = currentScrollY;
+
+    // Calculate dynamic speed boost based on scroll
+    const speedBoost = Math.abs(scrollVelocity.current) * 0.1;
+    const time = holoUniforms.uTime.value + delta * (1 + speedBoost);
+    
+    // Update uniforms
     holoUniforms.uTime.value = time;
     ring1Uniforms.uTime.value = time;
     ring2Uniforms.uTime.value = time;
+
+    // React to scroll: make it brighter (lower fresnel power) when scrolling fast
+    holoUniforms.uFresnelPower.value = THREE.MathUtils.lerp(
+      2.5, 
+      0.1, // make it significantly brighter during fast scroll
+      Math.min(Math.abs(scrollVelocity.current) * 0.05, 1.0)
+    );
 
     // Mouse parallax with smooth lerp
     if (groupRef.current) {
@@ -130,17 +156,17 @@ export function HolographicCore() {
       );
     }
 
-    // Auto-rotate sphere slowly
+    // Auto-rotate sphere, plus scroll boost
     if (sphereRef.current) {
-      sphereRef.current.rotation.y += delta * 0.15;
+      sphereRef.current.rotation.y += delta * 0.15 + scrollVelocity.current * 0.003;
     }
 
-    // Rotate rings independently
+    // Rotate rings independently, plus scroll boost
     if (ring1Ref.current) {
-      ring1Ref.current.rotation.z += delta * 0.2;
+      ring1Ref.current.rotation.z += delta * 0.2 + scrollVelocity.current * 0.005;
     }
     if (ring2Ref.current) {
-      ring2Ref.current.rotation.z -= delta * 0.15;
+      ring2Ref.current.rotation.z -= delta * 0.15 - scrollVelocity.current * 0.004;
     }
   });
 

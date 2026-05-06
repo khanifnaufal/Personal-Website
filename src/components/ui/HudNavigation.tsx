@@ -48,6 +48,7 @@ export default function HudNavigation() {
   const scrollToSection = useCallback((sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
+      window.dispatchEvent(new CustomEvent("nav-warp"));
       element.scrollIntoView({ behavior: "smooth" });
       setIsMobileOpen(false);
     }

@@ -61,6 +61,7 @@ function TypewriterTagline() {
 
 export default function BaseStation() {
   const scrollTo = (id: string) => {
+    window.dispatchEvent(new CustomEvent("nav-warp"));
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 

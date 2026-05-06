@@ -396,3 +396,34 @@ body {
   box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
   transform: translateY(-2px);
 }
+
+/* ============================================
+   True Glitch Effect for Images
+   ============================================ */
+.glitch-layer-1 {
+  animation: true-glitch-1 4s infinite linear alternate-reverse;
+}
+
+.glitch-layer-2 {
+  animation: true-glitch-2 5s infinite linear alternate-reverse;
+}
+
+@keyframes true-glitch-1 {
+  0% { clip-path: inset(20% 0 80% 0); transform: translate(-5px, 0); opacity: 0.8; }
+  2% { clip-path: inset(60% 0 10% 0); transform: translate(5px, 0); opacity: 0.8; }
+  4% { clip-path: inset(40% 0 50% 0); transform: translate(-5px, 0); opacity: 0.8; }
+  6% { clip-path: inset(80% 0 5% 0); transform: translate(5px, 0); opacity: 0.8; }
+  8% { clip-path: inset(10% 0 70% 0); transform: translate(-5px, 0); opacity: 0.8; }
+  10% { opacity: 0; clip-path: inset(0 0 0 0); }
+  100% { opacity: 0; clip-path: inset(0 0 0 0); }
+}
+
+@keyframes true-glitch-2 {
+  0% { clip-path: inset(10% 0 60% 0); transform: translate(5px, 0); opacity: 0.8; }
+  2% { clip-path: inset(80% 0 5% 0); transform: translate(-5px, 0); opacity: 0.8; }
+  4% { clip-path: inset(30% 0 50% 0); transform: translate(5px, 0); opacity: 0.8; }
+  6% { clip-path: inset(70% 0 10% 0); transform: translate(-5px, 0); opacity: 0.8; }
+  8% { clip-path: inset(50% 0 30% 0); transform: translate(5px, 0); opacity: 0.8; }
+  10% { opacity: 0; clip-path: inset(0 0 0 0); }
+  100% { opacity: 0; clip-path: inset(0 0 0 0); }
+}
