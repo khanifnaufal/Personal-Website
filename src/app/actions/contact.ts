@@ -48,7 +48,7 @@ ${data.message}
       html: `
         <div style="font-family: monospace; background: #030014; color: #e8e8ff; padding: 2rem; border-radius: 12px;">
           <h2 style="color: #00f0ff; margin-bottom: 1.5rem;">📡 New Signal Received</h2>
-          <div style="border-left: 2px solid #00f0ff; padding-left: 1rem; margin-bottom: 1rem;">
+          <div style="border-left: 4px solid #00f0ff; padding-left: 1rem; margin-bottom: 1rem;">
             <p><strong style="color: #8888aa;">Name:</strong> ${data.name}</p>
             <p><strong style="color: #8888aa;">Email:</strong> ${data.email}</p>
             <p><strong style="color: #8888aa;">Subject:</strong> ${data.subject}</p>

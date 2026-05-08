@@ -31,7 +31,7 @@ export default function LoadingScreen() {
       </p>
 
       {/* Progress bar */}
-      <div className="mt-4 w-48 h-[2px] bg-border rounded-full overflow-hidden">
+      <div className="mt-4 w-48 h-[8px] bg-border rounded-full overflow-hidden">
         <div
           className="h-full bg-gradient-to-r from-cyan to-purple rounded-full"
           style={{

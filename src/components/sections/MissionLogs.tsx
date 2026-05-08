@@ -100,10 +100,10 @@ function ProjectCard({ project }: { project: Project }) {
         <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan/30 to-transparent z-20" />
       </div>
 
-      <div className="p-6 flex flex-col h-[calc(100%-12rem)]" style={{ transform: "translateZ(30px)" }}>
+      <div className="p-6 flex flex-col flex-1" style={{ transform: "translateZ(30px)" }}>
         <div className="flex-1">
           <h3 className="text-lg font-semibold text-text-primary mb-2 group-hover:text-cyan transition-colors" style={{ fontFamily: "var(--font-heading), sans-serif" }}>{project.title}</h3>
-          <p className="text-text-secondary text-sm leading-relaxed mb-4 line-clamp-3 h-15">
+          <p className="text-text-secondary text-sm leading-relaxed mb-4">
             {project.description}
           </p>
           <div className="flex flex-wrap gap-2 mb-6">

@@ -47,8 +47,8 @@ export default function FlightHistory() {
               key={cat.key}
               onClick={() => setActiveFilter(cat.key)}
               className={`px-5 py-2 rounded-full text-xs tracking-wider uppercase transition-all duration-300 flex items-center gap-2 ${activeFilter === cat.key
-                  ? "bg-purple/20 border border-purple/50 text-purple shadow-[0_0_15px_rgba(123,47,255,0.2)]"
-                  : "glass-light text-text-secondary hover:text-text-primary hover:border-purple/30"
+                  ? "bg-orange/20 border border-orange/50 text-orange shadow-[0_0_15px_rgba(255,107,0,0.2)]"
+                  : "glass-light text-text-secondary hover:text-text-primary hover:border-orange/30"
                 }`}
               style={{ fontFamily: "var(--font-mono), monospace" }}
             >
@@ -61,7 +61,7 @@ export default function FlightHistory() {
         {/* Timeline */}
         <div className="relative">
           {/* Vertical line */}
-          <div className="absolute left-[20px] md:left-1/2 top-0 bottom-0 w-[1px] bg-gradient-to-b from-cyan/30 via-purple/30 to-transparent -translate-x-1/2" />
+          <div className="absolute left-[20px] md:left-1/2 top-0 bottom-0 w-[4px] bg-gradient-to-b from-cyan/30 via-orange/30 to-transparent -translate-x-1/2" />
 
           <div className="space-y-12">
             <AnimatePresence mode="popLayout">
@@ -87,12 +87,12 @@ export default function FlightHistory() {
 
                     {/* Content Card */}
                     <div
-                      className={`glass-card rounded-2xl p-6 w-full md:w-[45%] relative group hud-bracket ${isLeft ? "border-cyan/20" : "border-purple/20"
+                      className={`glass-card rounded-2xl p-6 w-full md:w-[45%] relative group hud-bracket ${isLeft ? "border-cyan/20" : "border-orange/20"
                         }`}
                     >
                       {/* Connection line for desktop */}
                       <div
-                        className={`hidden md:block absolute top-1/2 w-[10%] h-[1px] bg-border -translate-y-1/2 ${isLeft ? "-right-[10%]" : "-left-[10%]"
+                        className={`hidden md:block absolute top-1/2 w-[10%] h-[2px] bg-border -translate-y-1/2 ${isLeft ? "-right-[10%]" : "-left-[10%]"
                           }`}
                       />
 
@@ -111,7 +111,7 @@ export default function FlightHistory() {
 
                       {/* Title & Org */}
                       <h3
-                        className={`text-xl font-bold mb-1 ${isLeft ? "text-cyan group-hover:glow-text-cyan" : "text-purple group-hover:glow-text-purple"
+                        className={`text-xl font-bold mb-1 ${isLeft ? "text-cyan group-hover:glow-text-cyan" : "text-orange group-hover:glow-text-orange"
                           } transition-all duration-300`}
                         style={{ fontFamily: "var(--font-heading), sans-serif" }}
                       >
@@ -121,7 +121,7 @@ export default function FlightHistory() {
 
                       {/* Period */}
                       <p
-                        className="text-xs text-text-muted mb-4 uppercase tracking-wider"
+                        className="text-xs text-text-secondary mb-4 uppercase tracking-wider"
                         style={{ fontFamily: "var(--font-mono), monospace" }}
                       >
                         {item.period}
@@ -133,7 +133,7 @@ export default function FlightHistory() {
                           <ul className="space-y-2 list-none">
                             {item.description.map((point, i) => (
                               <li key={i} className="flex gap-2">
-                                <span className={`flex-shrink-0 mt-1.5 w-1.5 h-1.5 rounded-full ${isLeft ? "bg-cyan" : "bg-purple"} opacity-60`} />
+                                <span className={`flex-shrink-0 mt-1.5 w-1.5 h-1.5 rounded-full ${isLeft ? "bg-cyan" : "bg-orange"} opacity-60`} />
                                 <span>{point}</span>
                               </li>
                             ))}
@@ -150,7 +150,7 @@ export default function FlightHistory() {
                             {item.tags.map((tag) => (
                               <span
                                 key={tag}
-                                className={`px-2.5 py-1 rounded-md text-[10px] tracking-wider uppercase glass-light ${isLeft ? "text-cyan-dim" : "text-purple"
+                                className={`px-2.5 py-1 rounded-md text-[10px] tracking-wider uppercase glass-light ${isLeft ? "text-cyan-dim" : "text-orange"
                                   }`}
                                 style={{ fontFamily: "var(--font-mono)" }}
                               >
@@ -167,7 +167,7 @@ export default function FlightHistory() {
                             rel="noopener noreferrer"
                             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-[10px] tracking-[0.15em] uppercase font-bold transition-all duration-300 border ${isLeft
                                 ? "border-cyan/30 text-cyan hover:bg-cyan/10 hover:border-cyan"
-                                : "border-purple/30 text-purple hover:bg-purple/10 hover:border-purple"
+                                : "border-orange/30 text-orange hover:bg-orange/10 hover:border-orange"
                               }`}
                             style={{ fontFamily: "var(--font-mono)" }}
                           >

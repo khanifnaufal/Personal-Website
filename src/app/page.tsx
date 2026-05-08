@@ -36,24 +36,18 @@ export default async function Home() {
         <SignalTransmission />
 
         {/* Footer */}
-        <footer className="relative py-12 px-6 border-t border-border">
+        <footer className="relative py-6 px-6 border-t border-border">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
             <p
-              className="text-text-muted text-xs tracking-[0.15em] uppercase"
+              className="text-text-secondary text-xs tracking-[0.15em] uppercase"
               style={{ fontFamily: "var(--font-mono), monospace" }}
             >
               © {new Date().getFullYear()} Muhammad Khanif Naufal
             </p>
-            <div className="flex items-center gap-2 text-text-muted text-xs" style={{ fontFamily: "var(--font-mono)" }}>
+            <div className="flex items-center gap-2 text-text-secondary text-xs" style={{ fontFamily: "var(--font-mono)" }}>
               <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
               <span>All Systems Operational</span>
             </div>
-            <p
-              className="text-text-muted text-xs tracking-[0.1em]"
-              style={{ fontFamily: "var(--font-mono), monospace" }}
-            >
-              Built with Next.js + Three.js
-            </p>
           </div>
         </footer>
       </div>

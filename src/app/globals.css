@@ -16,6 +16,8 @@
   --color-purple-dim: #5a1fbf;
   --color-magenta: #ff00e5;
   --color-magenta-dim: #b300a0;
+  --color-orange: #ff6b00;
+  --color-orange-dim: #b34b00;
 
   --color-text-primary: #e8e8ff;
   --color-text-secondary: #c8c4d4;
@@ -117,12 +119,20 @@ body {
   box-shadow: 0 0 15px rgba(123, 47, 255, 0.3), 0 0 40px rgba(123, 47, 255, 0.1);
 }
 
+.glow-magenta, .glow-orange {
+  box-shadow: 0 0 15px rgba(255, 107, 0, 0.3), 0 0 40px rgba(255, 107, 0, 0.1);
+}
+
 .glow-text-cyan {
   text-shadow: 0 0 10px rgba(0, 240, 255, 0.5), 0 0 30px rgba(0, 240, 255, 0.2);
 }
 
 .glow-text-purple {
   text-shadow: 0 0 10px rgba(123, 47, 255, 0.5), 0 0 30px rgba(123, 47, 255, 0.2);
+}
+
+.glow-text-magenta, .glow-text-orange {
+  text-shadow: 0 0 10px rgba(255, 107, 0, 0.5), 0 0 30px rgba(255, 107, 0, 0.2);
 }
 
 /* ============================================
