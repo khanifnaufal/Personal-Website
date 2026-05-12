@@ -338,11 +338,10 @@ export default function SpotifyNowPlaying() {
                       href={track.songUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="hover:underline truncate block"
+                      className="hover:underline truncate block md:text-[0.85rem]"
                       style={{
                         fontFamily: "var(--font-inter), sans-serif",
                         fontSize: "0.75rem",
-                        mdFontSize: "0.85rem",
                         fontWeight: 600,
                         color: "var(--color-text-primary)",
                         lineHeight: 1.2,
