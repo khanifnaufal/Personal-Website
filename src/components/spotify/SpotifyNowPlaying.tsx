@@ -181,7 +181,6 @@ export default function SpotifyNowPlaying() {
     return (
       <div
         className="glass-card rounded-2xl p-4 w-full"
-        style={{ maxWidth: "350px" }}
       >
         <div className="flex items-center gap-3 opacity-40">
           <SpotifyLogo size={20} />
@@ -243,7 +242,7 @@ export default function SpotifyNowPlaying() {
   if (state === "empty" || !track) return null;
 
   return (
-    <div className="w-full" style={{ maxWidth: "350px" }}>
+    <div className="w-full mx-auto md:mx-0">
       <AnimatePresence mode="wait">
         <motion.div
           key={track.title}
@@ -254,14 +253,14 @@ export default function SpotifyNowPlaying() {
         >
           {/* Card */}
           <div
-            className="glass-card rounded-2xl p-4 relative overflow-hidden"
+            className="glass-card rounded-xl md:rounded-2xl p-3 md:p-4 relative overflow-hidden"
             style={{ border: "1px solid rgba(29, 185, 84, 0.15)" }}
           >
             {/* Ambient album art blur background */}
             {track.albumArt && (
               <div
                 aria-hidden="true"
-                className="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none"
+                className="absolute inset-0 rounded-xl md:rounded-2xl overflow-hidden pointer-events-none"
                 style={{ zIndex: 0 }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -270,7 +269,7 @@ export default function SpotifyNowPlaying() {
                   alt=""
                   className="w-full h-full object-cover"
                   style={{
-                    filter: "blur(40px) saturate(1.8) brightness(0.25)",
+                    filter: "blur(40px) saturate(1.8) brightness(0.2)",
                     transform: "scale(1.2)",
                   }}
                 />
@@ -280,13 +279,13 @@ export default function SpotifyNowPlaying() {
             {/* Content */}
             <div className="relative z-10">
               {/* Header row */}
-              <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center justify-between mb-2 md:mb-3">
                 <span
                   className="section-label"
                   style={{
-                    fontSize: "0.6rem",
-                    letterSpacing: "0.18em",
-                    paddingLeft: "1.2rem",
+                    fontSize: "0.55rem",
+                    letterSpacing: "0.15em",
+                    paddingLeft: "1rem",
                   }}
                 >
                   {track.isPlaying ? "AUDIO_FEED" : "LAST_PLAYED"}
@@ -295,23 +294,21 @@ export default function SpotifyNowPlaying() {
                   href={track.songUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Open in Spotify"
                   className="opacity-70 hover:opacity-100 transition-opacity"
                 >
-                  <SpotifyLogo size={16} />
+                  <SpotifyLogo size={14} />
                 </a>
               </div>
 
               {/* Track row */}
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 md:gap-3">
                 {/* Album Art */}
                 <div
                   className="relative flex-shrink-0 rounded-lg overflow-hidden"
                   style={{
-                    width: 56,
-                    height: 56,
+                    width: 48,
+                    height: 48,
                     border: "1px solid rgba(29,185,84,0.2)",
-                    boxShadow: "0 0 12px rgba(29,185,84,0.1)",
                   }}
                 >
                   {track.albumArt ? (
@@ -320,14 +317,14 @@ export default function SpotifyNowPlaying() {
                       alt={track.album}
                       fill
                       className="object-cover"
-                      sizes="56px"
+                      sizes="48px"
                     />
                   ) : (
                     <div
                       className="w-full h-full flex items-center justify-center"
                       style={{ background: "rgba(255,255,255,0.05)" }}
                     >
-                      <SpotifyLogo size={24} />
+                      <SpotifyLogo size={20} />
                     </div>
                   )}
                 </div>
@@ -335,7 +332,7 @@ export default function SpotifyNowPlaying() {
                 {/* Track info */}
                 <div className="flex-1 min-w-0">
                   {/* Title + Equalizer */}
-                  <div className="flex items-center gap-2 mb-0.5">
+                  <div className="flex items-center gap-1.5 mb-0.5">
                     {track.isPlaying && <EqualizerBars />}
                     <a
                       href={track.songUrl}
@@ -344,10 +341,11 @@ export default function SpotifyNowPlaying() {
                       className="hover:underline truncate block"
                       style={{
                         fontFamily: "var(--font-inter), sans-serif",
-                        fontSize: "0.85rem",
+                        fontSize: "0.75rem",
+                        mdFontSize: "0.85rem",
                         fontWeight: 600,
                         color: "var(--color-text-primary)",
-                        lineHeight: 1.3,
+                        lineHeight: 1.2,
                       }}
                       title={track.title ?? ""}
                     >
@@ -361,28 +359,13 @@ export default function SpotifyNowPlaying() {
                     style={{
                       fontFamily:
                         "var(--font-jetbrains-mono), monospace",
-                      fontSize: "0.7rem",
+                      fontSize: "0.65rem",
                       color: "var(--color-text-secondary)",
-                      lineHeight: 1.4,
+                      lineHeight: 1.3,
                     }}
                     title={track.artist}
                   >
                     {track.artist}
-                  </p>
-
-                  {/* Album */}
-                  <p
-                    className="truncate"
-                    style={{
-                      fontFamily:
-                        "var(--font-jetbrains-mono), monospace",
-                      fontSize: "0.62rem",
-                      color: "var(--color-text-muted)",
-                      lineHeight: 1.4,
-                    }}
-                    title={track.album}
-                  >
-                    {track.album}
                   </p>
                 </div>
               </div>
