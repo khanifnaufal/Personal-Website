@@ -11,9 +11,9 @@ export function middleware(request: NextRequest) {
     default-src 'self';
     script-src 'self' 'unsafe-inline' 'unsafe-eval';
     style-src 'self' 'unsafe-inline';
-    img-src 'self' blob: data: https://cdn.jsdelivr.net https://raw.githubusercontent.com https://github.com https://*.githubusercontent.com;
+    img-src 'self' blob: data: https://cdn.jsdelivr.net https://raw.githubusercontent.com https://github.com https://*.githubusercontent.com https://i.scdn.co https://mosaic.scdn.co https://*.spotifycdn.com;
     font-src 'self' https://fonts.gstatic.com;
-    connect-src 'self' https://api.resend.com${isDev ? " ws://localhost:* http://localhost:*" : ""};
+    connect-src 'self' https://api.resend.com https://accounts.spotify.com https://api.spotify.com${isDev ? " ws://localhost:* http://localhost:*" : ""};
     object-src 'none';
     base-uri 'self';
     form-action 'self';
