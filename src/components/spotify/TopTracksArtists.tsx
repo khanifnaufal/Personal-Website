@@ -61,15 +61,15 @@ function RankBadge({ rank }: { rank: number }) {
     return (
       <div
         className="flex-shrink-0 flex items-center justify-center"
-        style={{ width: 36, minWidth: 36 }}
+        style={{ width: 28, minWidth: 28 }}
       >
         <span
           className="font-bold leading-none"
           style={{
-            fontFamily: "var(--font-heading), sans-serif",
-            fontSize: "1.5rem",
+            fontFamily: "var(--font-heading), Courier New, monospace",
+            fontSize: "1rem",
             color: "#1DB954",
-            textShadow: "0 0 12px rgba(29,185,84,0.6), 0 0 30px rgba(29,185,84,0.25)",
+            textShadow: "0 0 8px rgba(29,185,84,0.4)",
           }}
         >
           1
@@ -81,17 +81,17 @@ function RankBadge({ rank }: { rank: number }) {
   return (
     <div
       className="flex-shrink-0 flex items-center justify-center"
-      style={{ width: 36, minWidth: 36 }}
+      style={{ width: 28, minWidth: 28 }}
     >
       <span
-        className="font-mono font-medium"
+        className="font-medium"
         style={{
-          fontFamily: "var(--font-mono), monospace",
+          fontFamily: "'Courier New', monospace",
           fontSize: "0.8rem",
-          color: "var(--color-text-secondary)",
+          color: "#445",
         }}
       >
-        {String(rank).padStart(2, "0")}
+        {rank}
       </span>
     </div>
   );
@@ -106,20 +106,19 @@ function TrackItem({ track, index }: { track: TopTrack; index: number }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: -16 }}
+      initial={{ opacity: 0, x: -10 }}
       animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.35, delay: index * 0.055, ease: "easeOut" }}
+      transition={{ duration: 0.3, delay: index * 0.05, ease: "easeOut" }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="group relative flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-300"
+      className="group relative flex items-center gap-3 px-2 py-2 rounded-lg transition-all duration-300"
       style={{
         background: hovered
           ? "rgba(29,185,84,0.05)"
           : isFirst
-            ? "rgba(29,185,84,0.03)"
+            ? "rgba(29,185,84,0.02)"
             : "transparent",
-        borderTop: isFirst ? "1px solid rgba(29,185,84,0.12)" : "1px solid transparent",
-        borderBottom: "1px solid rgba(255,255,255,0.04)",
+        borderBottom: "1px solid rgba(255,255,255,0.02)",
       }}
     >
       {/* Rank */}
@@ -127,15 +126,11 @@ function TrackItem({ track, index }: { track: TopTrack; index: number }) {
 
       {/* Album Art */}
       <div
-        className="relative flex-shrink-0 rounded-lg overflow-hidden"
+        className="relative flex-shrink-0 rounded overflow-hidden"
         style={{
-          width: isFirst ? 52 : 44,
-          height: isFirst ? 52 : 44,
-          transition: "width 0.3s, height 0.3s",
-          border: isFirst
-            ? "1px solid rgba(29,185,84,0.3)"
-            : "1px solid rgba(255,255,255,0.08)",
-          boxShadow: isFirst ? "0 0 10px rgba(29,185,84,0.15)" : "none",
+          width: 28,
+          height: 28,
+          border: "1px solid rgba(255,255,255,0.05)",
         }}
       >
         {track.albumArt ? (
@@ -144,14 +139,14 @@ function TrackItem({ track, index }: { track: TopTrack; index: number }) {
             alt={track.name}
             fill
             className="object-cover"
-            sizes="52px"
+            sizes="28px"
           />
         ) : (
           <div
             className="w-full h-full flex items-center justify-center"
             style={{ background: "rgba(29,185,84,0.1)" }}
           >
-            <SpotifyLogo size={20} />
+            <SpotifyLogo size={14} />
           </div>
         )}
       </div>
@@ -161,9 +156,9 @@ function TrackItem({ track, index }: { track: TopTrack; index: number }) {
         <p
           className="truncate font-semibold leading-tight mb-0.5"
           style={{
-            fontFamily: "var(--font-body), sans-serif",
-            fontSize: isFirst ? "0.9rem" : "0.8rem",
-            color: isFirst ? "#e8e8ff" : "var(--color-text-primary)",
+            fontFamily: "'Courier New', monospace",
+            fontSize: "0.8rem",
+            color: isFirst ? "#e0e0f0" : "#a0a0b0",
           }}
           title={track.name}
         >
@@ -172,9 +167,9 @@ function TrackItem({ track, index }: { track: TopTrack; index: number }) {
         <p
           className="truncate"
           style={{
-            fontFamily: "var(--font-mono), monospace",
+            fontFamily: "'Courier New', monospace",
             fontSize: "0.65rem",
-            color: isFirst ? "rgba(29,185,84,0.8)" : "var(--color-text-secondary)",
+            color: "#445",
           }}
           title={track.artist}
         >
@@ -196,11 +191,10 @@ function TrackItem({ track, index }: { track: TopTrack; index: number }) {
             transition={{ duration: 0.15 }}
             className="flex-shrink-0 flex items-center justify-center rounded-full"
             style={{
-              width: 30,
-              height: 30,
+              width: 24,
+              height: 24,
               background: "#1DB954",
               color: "#000",
-              boxShadow: "0 0 14px rgba(29,185,84,0.5)",
             }}
             aria-label={`Play ${track.name} on Spotify`}
             onClick={(e) => e.stopPropagation()}
@@ -222,20 +216,19 @@ function ArtistItem({ artist, index }: { artist: TopArtist; index: number }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: -16 }}
+      initial={{ opacity: 0, x: -10 }}
       animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.35, delay: index * 0.055, ease: "easeOut" }}
+      transition={{ duration: 0.3, delay: index * 0.05, ease: "easeOut" }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="group relative flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-300"
+      className="group relative flex items-center gap-3 px-2 py-2 rounded-lg transition-all duration-300"
       style={{
         background: hovered
           ? "rgba(29,185,84,0.05)"
           : isFirst
-            ? "rgba(29,185,84,0.03)"
+            ? "rgba(29,185,84,0.02)"
             : "transparent",
-        borderTop: isFirst ? "1px solid rgba(29,185,84,0.12)" : "1px solid transparent",
-        borderBottom: "1px solid rgba(255,255,255,0.04)",
+        borderBottom: "1px solid rgba(255,255,255,0.02)",
       }}
     >
       {/* Rank */}
@@ -245,14 +238,10 @@ function ArtistItem({ artist, index }: { artist: TopArtist; index: number }) {
       <div
         className="relative flex-shrink-0 overflow-hidden"
         style={{
-          width: isFirst ? 52 : 44,
-          height: isFirst ? 52 : 44,
+          width: 28,
+          height: 28,
           borderRadius: "50%",
-          transition: "width 0.3s, height 0.3s",
-          border: isFirst
-            ? "2px solid rgba(29,185,84,0.4)"
-            : "2px solid rgba(255,255,255,0.1)",
-          boxShadow: isFirst ? "0 0 14px rgba(29,185,84,0.2)" : "none",
+          border: "1px solid rgba(255,255,255,0.05)",
         }}
       >
         {artist.image ? (
@@ -261,14 +250,14 @@ function ArtistItem({ artist, index }: { artist: TopArtist; index: number }) {
             alt={artist.name}
             fill
             className="object-cover"
-            sizes="52px"
+            sizes="28px"
           />
         ) : (
           <div
             className="w-full h-full flex items-center justify-center"
             style={{ background: "rgba(29,185,84,0.1)" }}
           >
-            <SpotifyLogo size={20} />
+            <SpotifyLogo size={14} />
           </div>
         )}
       </div>
@@ -276,39 +265,27 @@ function ArtistItem({ artist, index }: { artist: TopArtist; index: number }) {
       {/* Artist Info */}
       <div className="flex-1 min-w-0">
         <p
-          className="truncate font-semibold leading-tight mb-1"
+          className="truncate font-semibold leading-tight mb-0.5"
           style={{
-            fontFamily: "var(--font-body), sans-serif",
-            fontSize: isFirst ? "0.9rem" : "0.8rem",
-            color: isFirst ? "#e8e8ff" : "var(--color-text-primary)",
+            fontFamily: "'Courier New', monospace",
+            fontSize: "0.8rem",
+            color: isFirst ? "#e0e0f0" : "#a0a0b0",
           }}
           title={artist.name}
         >
           {artist.name}
         </p>
-        {/* Genre Pills */}
-        {artist.genres.length > 0 && (
-          <div className="flex items-center gap-1 flex-wrap">
-            {artist.genres.map((genre) => (
-              <span
-                key={genre}
-                className="capitalize"
-                style={{
-                  fontFamily: "var(--font-mono), monospace",
-                  fontSize: "0.55rem",
-                  letterSpacing: "0.05em",
-                  color: "rgba(29,185,84,0.7)",
-                  background: "rgba(29,185,84,0.08)",
-                  border: "1px solid rgba(29,185,84,0.15)",
-                  borderRadius: "4px",
-                  padding: "1px 5px",
-                }}
-              >
-                {genre}
-              </span>
-            ))}
-          </div>
-        )}
+        <p
+          className="truncate"
+          style={{
+            fontFamily: "'Courier New', monospace",
+            fontSize: "0.65rem",
+            color: "#445",
+          }}
+          title={artist.genres[0] || "Artist"}
+        >
+          {artist.genres[0] || "Artist"}
+        </p>
       </div>
 
       {/* Play Button (hover) */}
@@ -325,11 +302,10 @@ function ArtistItem({ artist, index }: { artist: TopArtist; index: number }) {
             transition={{ duration: 0.15 }}
             className="flex-shrink-0 flex items-center justify-center rounded-full"
             style={{
-              width: 30,
-              height: 30,
+              width: 24,
+              height: 24,
               background: "#1DB954",
               color: "#000",
-              boxShadow: "0 0 14px rgba(29,185,84,0.5)",
             }}
             aria-label={`Open ${artist.name} on Spotify`}
             onClick={(e) => e.stopPropagation()}
@@ -345,9 +321,8 @@ function ArtistItem({ artist, index }: { artist: TopArtist; index: number }) {
 /* ─────────────────────────────────────────
    Skeleton Loader Row
 ───────────────────────────────────────── */
-// Fixed widths — avoid Math.random() which causes SSR/client hydration mismatch
-const SKELETON_TITLE_WIDTHS = ["72%", "65%", "80%", "58%", "75%", "68%", "82%", "60%", "70%", "77%"];
-const SKELETON_SUB_WIDTHS = ["45%", "38%", "52%", "40%", "48%", "35%", "55%", "42%", "50%", "37%"];
+const SKELETON_TITLE_WIDTHS = ["70%", "60%", "80%", "50%", "75%"];
+const SKELETON_SUB_WIDTHS = ["40%", "30%", "50%", "35%", "45%"];
 
 function SkeletonRow({ index }: { index: number }) {
   const titleW = SKELETON_TITLE_WIDTHS[index % SKELETON_TITLE_WIDTHS.length];
@@ -358,26 +333,26 @@ function SkeletonRow({ index }: { index: number }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: index * 0.04 }}
-      className="flex items-center gap-3 px-3 py-2.5"
+      className="flex items-center gap-3 px-2 py-2"
     >
-      <div style={{ width: 36, minWidth: 36 }} className="flex items-center justify-center">
+      <div style={{ width: 28, minWidth: 28 }} className="flex items-center justify-center">
         <div
           className="animate-pulse rounded"
-          style={{ width: 20, height: 12, background: "rgba(255,255,255,0.06)" }}
+          style={{ width: 16, height: 12, background: "#141830" }}
         />
       </div>
       <div
-        className="animate-pulse flex-shrink-0 rounded-lg"
-        style={{ width: 44, height: 44, background: "rgba(255,255,255,0.05)" }}
+        className="animate-pulse flex-shrink-0 rounded"
+        style={{ width: 28, height: 28, background: "#141830" }}
       />
-      <div className="flex-1 space-y-2">
+      <div className="flex-1 space-y-1.5">
         <div
           className="animate-pulse rounded"
-          style={{ height: 10, width: titleW, background: "rgba(255,255,255,0.06)" }}
+          style={{ height: 10, width: titleW, background: "#141830" }}
         />
         <div
           className="animate-pulse rounded"
-          style={{ height: 8, width: subW, background: "rgba(255,255,255,0.04)" }}
+          style={{ height: 8, width: subW, background: "rgba(20,24,48,0.5)" }}
         />
       </div>
     </motion.div>
@@ -387,7 +362,7 @@ function SkeletonRow({ index }: { index: number }) {
 /* ─────────────────────────────────────────
    Main Component
 ───────────────────────────────────────── */
-export default function SpotifyTopCharts() {
+export default function TopTracksArtists() {
   const [activeTab, setActiveTab] = useState<ActiveTab>("tracks");
   const [timeRange, setTimeRange] = useState<TimeRange>("short_term");
   const [tracks, setTracks] = useState<TopTrack[]>([]);
@@ -400,7 +375,6 @@ export default function SpotifyTopCharts() {
   useEffect(() => {
     const cacheKey = `${activeTab}-${timeRange}`;
 
-    // If we already fetched this combination, don't show skeleton again
     if (!hasFetchedRef.current[cacheKey]) {
       setStatus("loading");
     }
@@ -420,9 +394,9 @@ export default function SpotifyTopCharts() {
         if (cancelled) return;
 
         if (activeTab === "tracks") {
-          setTracks(data.tracks ?? []);
+          setTracks((data.tracks ?? []).slice(0, 5)); // Enforce 5 items
         } else {
-          setArtists(data.artists ?? []);
+          setArtists((data.artists ?? []).slice(0, 5)); // Enforce 5 items
         }
         hasFetchedRef.current[cacheKey] = true;
         setStatus("ok");
@@ -435,63 +409,28 @@ export default function SpotifyTopCharts() {
   }, [activeTab, timeRange]);
 
   const timeLabels: Record<TimeRange, string> = {
-    short_term: "4 Minggu",
-    medium_term: "6 Bulan",
-    long_term: "Semua",
+    short_term: "4W",
+    medium_term: "6M",
+    long_term: "ALL",
   };
 
   const currentList = activeTab === "tracks" ? tracks : artists;
 
   return (
-    <div className="w-full mx-auto md:mx-0">
-      {/* Header Row */}
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-2">
-          <SpotifyLogo size={16} />
-          <span
-            className="section-label"
-            style={{ fontSize: "0.65rem", letterSpacing: "0.15em" }}
-          >
-            {activeTab === "tracks" ? "Top Songs" : "Top Artists"}
-          </span>
-        </div>
-        <a
-          href="https://open.spotify.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="opacity-40 hover:opacity-80 transition-opacity"
-          aria-label="Open Spotify"
-        >
-          <SpotifyLogo size={14} />
-        </a>
-      </div>
-
+    <div className="w-full flex flex-col h-full rounded-xl p-4 bg-[#10152a] border border-[#1a2040]">
       {/* Tab Switcher */}
-      <div
-        className="flex gap-1 p-1 rounded-xl mb-4"
-        style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}
-        role="tablist"
-        aria-label="Select chart type"
-      >
+      <div className="flex gap-2 mb-3">
         {(["tracks", "artists"] as ActiveTab[]).map((tab) => (
           <button
             key={tab}
-            role="tab"
-            aria-selected={activeTab === tab}
             onClick={() => setActiveTab(tab)}
-            className="flex-1 relative rounded-lg py-1.5 transition-all duration-300"
+            className="flex-1 py-1.5 rounded-md border border-[#1a2040] transition-colors duration-150"
             style={{
-              fontFamily: "var(--font-mono), monospace",
-              fontSize: "0.65rem",
-              letterSpacing: "0.1em",
+              fontFamily: "'Courier New', monospace",
+              fontSize: "0.75rem",
               textTransform: "uppercase",
-              color: activeTab === tab ? "#1DB954" : "var(--color-text-secondary)",
-              background: activeTab === tab ? "rgba(29,185,84,0.1)" : "transparent",
-              border: activeTab === tab
-                ? "1px solid rgba(29,185,84,0.25)"
-                : "1px solid transparent",
-              boxShadow: activeTab === tab ? "0 0 10px rgba(29,185,84,0.08)" : "none",
-              cursor: "pointer",
+              color: activeTab === tab ? "#e0e0f0" : "#445",
+              background: activeTab === tab ? "rgba(255,255,255,0.05)" : "transparent",
             }}
           >
             {tab === "tracks" ? "Top Songs" : "Top Artists"}
@@ -500,114 +439,89 @@ export default function SpotifyTopCharts() {
       </div>
 
       {/* Time Range Picker */}
-      <div className="flex gap-1.5 mb-5" role="group" aria-label="Time range">
+      <div className="flex gap-2 mb-4">
         {(Object.entries(timeLabels) as [TimeRange, string][]).map(([range, label]) => (
           <button
             key={range}
             onClick={() => setTimeRange(range)}
-            className="flex-1 py-1 rounded-lg transition-all duration-300"
+            className="flex-1 py-1 rounded-md border border-[#1a2040] transition-colors duration-150"
             style={{
-              fontFamily: "var(--font-mono), monospace",
-              fontSize: "0.6rem",
-              letterSpacing: "0.08em",
-              color: timeRange === range ? "#1DB954" : "var(--color-text-secondary)",
-              background: timeRange === range
-                ? "rgba(29,185,84,0.08)"
-                : "rgba(255,255,255,0.02)",
-              border: timeRange === range
-                ? "1px solid rgba(29,185,84,0.2)"
-                : "1px solid rgba(255,255,255,0.05)",
-              cursor: "pointer",
+              fontFamily: "'Courier New', monospace",
+              fontSize: "0.7rem",
+              color: timeRange === range ? "#e0e0f0" : "#445",
+              background: timeRange === range ? "rgba(255,255,255,0.02)" : "transparent",
             }}
-            aria-pressed={timeRange === range}
           >
             {label}
           </button>
         ))}
       </div>
 
-      {/* Divider */}
-      <div
-        className="w-full mb-3"
-        style={{ height: "1px", background: "linear-gradient(to right, rgba(29,185,84,0.3), transparent)" }}
-      />
-
       {/* List Content */}
-      <AnimatePresence mode="wait">
-        {status === "loading" && (
-          <motion.div
-            key="skeleton"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-          >
-            {Array.from({ length: 5 }).map((_, i) => (
-              <SkeletonRow key={i} index={i} />
-            ))}
-          </motion.div>
-        )}
-
-        {status === "error" && (
-          <motion.div
-            key="error"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="flex items-center justify-center py-10 gap-2"
-            style={{ color: "var(--color-text-secondary)" }}
-          >
-            <SpotifyLogo size={16} />
-            <span
-              style={{
-                fontFamily: "var(--font-mono), monospace",
-                fontSize: "0.7rem",
-                letterSpacing: "0.1em",
-              }}
+      <div className="flex-1">
+        <AnimatePresence mode="wait">
+          {status === "loading" && (
+            <motion.div
+              key="skeleton"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
+              className="flex flex-col gap-1"
             >
-              SIGNAL_LOST — Coba lagi nanti
-            </span>
-          </motion.div>
-        )}
-
-        {status === "ok" && currentList.length === 0 && (
-          <motion.div
-            key="empty"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="flex items-center justify-center py-10 gap-2"
-            style={{ color: "var(--color-text-muted)" }}
-          >
-            <span
-              style={{
-                fontFamily: "var(--font-mono), monospace",
-                fontSize: "0.7rem",
-              }}
-            >
-              Belum ada data.
-            </span>
-          </motion.div>
-        )}
-
-        {status === "ok" && currentList.length > 0 && (
-          <motion.div
-            key={`${activeTab}-${timeRange}`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-          >
-            {activeTab === "tracks"
-              ? tracks.map((track, i) => (
-                <TrackItem key={track.id} track={track} index={i} />
-              ))
-              : artists.map((artist, i) => (
-                <ArtistItem key={artist.id} artist={artist} index={i} />
+              {Array.from({ length: 5 }).map((_, i) => (
+                <SkeletonRow key={i} index={i} />
               ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </motion.div>
+          )}
+
+          {status === "error" && (
+            <motion.div
+              key="error"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="flex items-center justify-center py-10 gap-2 h-[200px]"
+              style={{ color: "#445", fontFamily: "'Courier New', monospace" }}
+            >
+              <SpotifyLogo size={16} />
+              <span style={{ fontSize: "0.75rem" }}>SIGNAL_LOST</span>
+            </motion.div>
+          )}
+
+          {status === "ok" && currentList.length === 0 && (
+            <motion.div
+              key="empty"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="flex items-center justify-center py-10 gap-2 h-[200px]"
+              style={{ color: "#445", fontFamily: "'Courier New', monospace" }}
+            >
+              <span style={{ fontSize: "0.75rem" }}>No data found.</span>
+            </motion.div>
+          )}
+
+          {status === "ok" && currentList.length > 0 && (
+            <motion.div
+              key={`${activeTab}-${timeRange}`}
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
+              className="flex flex-col gap-1"
+            >
+              {activeTab === "tracks"
+                ? tracks.map((track, i) => (
+                  <TrackItem key={track.id} track={track} index={i} />
+                ))
+                : artists.map((artist, i) => (
+                  <ArtistItem key={artist.id} artist={artist} index={i} />
+                ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </div>
   );
 }
