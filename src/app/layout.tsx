@@ -37,8 +37,6 @@ export const metadata: Metadata = {
   authors: [{ name: "Muhammad Khanif Naufal" }],
   openGraph: {
     title: "Muhammad Khanif Naufal | Full-Stack Developer & ML/DL Engineer",
-    description:
-      "Building the future through code and intelligence. Specializing in full-stack web development and machine learning engineering.",
     type: "website",
     locale: "en_US",
   },
@@ -57,7 +55,21 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${orbitron.variable} ${jetbrainsMono.variable} ${inter.variable} dark`}
+      suppressHydrationWarning
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                if (!sessionStorage.getItem('visited_portfolio')) {
+                  document.documentElement.classList.add('loading-state');
+                }
+              } catch (e) {}
+            `,
+          }}
+        />
+      </head>
       <body className="min-h-screen overflow-x-hidden">{children}</body>
     </html>
   );

@@ -126,26 +126,16 @@ export default function BaseStation() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 1.6 }}
-          className="mb-8"
+          className="mb-12"
         >
           <TypewriterTagline />
         </motion.div>
-
-        {/* Bio */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.8 }}
-          className="text-text-secondary text-base md:text-lg max-w-2xl mx-auto mb-12 leading-relaxed"
-        >
-          {PERSONAL_INFO.bio}
-        </motion.p>
 
         {/* CTA Buttons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 2.0 }}
+          transition={{ duration: 0.6, delay: 1.8 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <button

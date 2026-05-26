@@ -70,33 +70,33 @@ function PlaylistCard({ data, index }: { data: PlaylistData; index: number }) {
       onClick={() => window.open(data.playlistUrl, "_blank")}
     >
       {/* Glow Effect on Hover */}
-      <div 
-        className="absolute inset-0 bg-[#1DB954]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" 
+      <div
+        className="absolute inset-0 bg-[#1DB954]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
       />
 
       {/* Cover Image */}
       <div className="w-14 h-14 flex-shrink-0 rounded shadow-md overflow-hidden bg-[#10152a] flex items-center justify-center border border-[#1a2040] group-hover:border-[#1DB954]/50 transition-colors duration-300 relative z-10">
         {data.coverImage ? (
-            <Image src={data.coverImage} alt={data.name} fill className="object-cover" sizes="56px" />
+          <Image src={data.coverImage} alt={data.name} fill className="object-cover" sizes="56px" />
         ) : (
           <SpotifyLogo size={20} />
         )}
         {/* Overlay play icon on hover */}
         <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="#1DB954"><path d="M8 5v14l11-7z" /></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#1DB954"><path d="M8 5v14l11-7z" /></svg>
         </div>
       </div>
 
       {/* Info */}
       <div className="flex-1 min-w-0 z-10">
-        <h4 className="text-[0.85rem] font-semibold text-[#e0e0f0] truncate" style={{ fontFamily: "'Courier New', monospace" }}>
+        <h4 className="text-[0.85rem] font-medium text-[#e0e0f0] truncate" style={{ fontFamily: "'Courier New', monospace" }}>
           {data.name}
         </h4>
-        <p className="text-[0.65rem] text-[#445] font-mono mt-1">
+        <p className="text-[0.65rem] text-[#8a94b5] font-mono mt-1">
           {data.trackCount} tracks
         </p>
       </div>
-      
+
       {/* Subtle indicator arrow/icon */}
       <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 mr-1">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1DB954" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -214,17 +214,17 @@ export default function PlaylistCarousel() {
         <h3 className="text-xs font-bold tracking-[0.15em] text-[#1DB954]" style={{ fontFamily: "'Courier New', monospace" }}>
           // MY_PLAYLISTS
         </h3>
-        
+
         {/* Navigation Arrows */}
         <div className="flex gap-2">
-          <button 
+          <button
             onClick={handlePrev}
             className="w-7 h-7 rounded-full border border-[#1a2040] flex items-center justify-center text-[#e0e0f0] hover:border-[#1DB954] hover:text-[#1DB954] transition-all disabled:opacity-30 disabled:hover:border-[#1a2040]"
             disabled={loading || totalPages <= 1}
           >
             &larr;
           </button>
-          <button 
+          <button
             onClick={handleNext}
             className="w-7 h-7 rounded-full border border-[#1a2040] flex items-center justify-center text-[#e0e0f0] hover:border-[#1DB954] hover:text-[#1DB954] transition-all disabled:opacity-30 disabled:hover:border-[#1a2040]"
             disabled={loading || totalPages <= 1}
@@ -272,9 +272,8 @@ export default function PlaylistCarousel() {
                 setDirection(i > currentPage ? 1 : -1);
                 setCurrentPage(i);
               }}
-              className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-                i === currentPage ? "bg-[#1DB954] w-3" : "bg-[#1a2040] hover:bg-[#445]"
-              }`}
+              className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${i === currentPage ? "bg-[#1DB954] w-3" : "bg-[#1a2040] hover:bg-[#8a94b5]"
+                }`}
               aria-label={`Go to page ${i + 1}`}
             />
           ))}

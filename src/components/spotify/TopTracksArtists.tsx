@@ -88,7 +88,7 @@ function RankBadge({ rank }: { rank: number }) {
         style={{
           fontFamily: "'Courier New', monospace",
           fontSize: "0.8rem",
-          color: "#445",
+          color: "#8a94b5",
         }}
       >
         {rank}
@@ -169,7 +169,7 @@ function TrackItem({ track, index }: { track: TopTrack; index: number }) {
           style={{
             fontFamily: "'Courier New', monospace",
             fontSize: "0.65rem",
-            color: "#445",
+            color: "#8a94b5",
           }}
           title={track.artist}
         >
@@ -280,7 +280,7 @@ function ArtistItem({ artist, index }: { artist: TopArtist; index: number }) {
           style={{
             fontFamily: "'Courier New', monospace",
             fontSize: "0.65rem",
-            color: "#445",
+            color: "#8a94b5",
           }}
           title={artist.genres[0] || "Artist"}
         >
@@ -429,7 +429,7 @@ export default function TopTracksArtists() {
               fontFamily: "'Courier New', monospace",
               fontSize: "0.75rem",
               textTransform: "uppercase",
-              color: activeTab === tab ? "#e0e0f0" : "#445",
+              color: activeTab === tab ? "#e0e0f0" : "#8a94b5",
               background: activeTab === tab ? "rgba(255,255,255,0.05)" : "transparent",
             }}
           >
@@ -448,7 +448,7 @@ export default function TopTracksArtists() {
             style={{
               fontFamily: "'Courier New', monospace",
               fontSize: "0.7rem",
-              color: timeRange === range ? "#e0e0f0" : "#445",
+              color: timeRange === range ? "#e0e0f0" : "#8a94b5",
               background: timeRange === range ? "rgba(255,255,255,0.02)" : "transparent",
             }}
           >
@@ -482,7 +482,7 @@ export default function TopTracksArtists() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="flex items-center justify-center py-10 gap-2 h-[200px]"
-              style={{ color: "#445", fontFamily: "'Courier New', monospace" }}
+              style={{ color: "#8a94b5", fontFamily: "'Courier New', monospace" }}
             >
               <SpotifyLogo size={16} />
               <span style={{ fontSize: "0.75rem" }}>SIGNAL_LOST</span>
@@ -496,7 +496,7 @@ export default function TopTracksArtists() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="flex items-center justify-center py-10 gap-2 h-[200px]"
-              style={{ color: "#445", fontFamily: "'Courier New', monospace" }}
+              style={{ color: "#8a94b5", fontFamily: "'Courier New', monospace" }}
             >
               <span style={{ fontSize: "0.75rem" }}>No data found.</span>
             </motion.div>

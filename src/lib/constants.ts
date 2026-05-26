@@ -18,7 +18,6 @@ export const PILOT_PROFILE = {
   location: "Semarang, Indonesia",
   status: "Open to Work" as const,
   motto: "You may break all my bones but my soul will be more than enough to get me on my feet.",
-  bio: "Building the future through code and intelligence. Specializing in full-stack web development and machine learning engineering.",
   links: {
     github: "https://github.com/khanifnaufal",
     linkedin: "https://www.linkedin.com/in/khanif-naufal/",
@@ -226,6 +225,5 @@ export const PROJECTS: Project[] = [
 export const PERSONAL_INFO = {
   name: "Muhammad Khanif Naufal",
   tagline: "Full-Stack Developer & ML/DL Engineer",
-  bio: "Building the future through code and intelligence. Specializing in full-stack web development and machine learning engineering.",
   email: "mkhanif86@gmail.com",
 } as const;

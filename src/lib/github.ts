@@ -7,7 +7,7 @@ export async function getGithubProjects(): Promise<Project[]> {
 
   try {
     const res = await fetch(url, {
-      next: { revalidate: 3600 }, 
+      next: { revalidate: 600 }, 
       headers: {
         Accept: "application/vnd.github.v3+json",
         "User-Agent": "Portfolio-App",
@@ -29,7 +29,7 @@ export async function getGithubProjects(): Promise<Project[]> {
       filteredRepos.map(async (repo: any) => {
         try {
           const langRes = await fetch(repo.languages_url, {
-            next: { revalidate: 3600 },
+            next: { revalidate: 600 },
             headers: {
               Accept: "application/vnd.github.v3+json",
               "User-Agent": "Portfolio-App",

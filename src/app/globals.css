@@ -36,6 +36,18 @@
 }
 
 /* ============================================
+   FOUC Loading State Prevention
+   ============================================ */
+.loading-state #main-content {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.loading-state body {
+  overflow: hidden !important;
+}
+
+/* ============================================
    Base Styles
    ============================================ */
 
