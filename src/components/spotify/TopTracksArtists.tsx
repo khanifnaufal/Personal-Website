@@ -66,7 +66,7 @@ function RankBadge({ rank }: { rank: number }) {
         <span
           className="font-bold leading-none"
           style={{
-            fontFamily: "var(--font-heading), Courier New, monospace",
+            fontFamily: "var(--font-heading), var(--font-mono), monospace",
             fontSize: "1rem",
             color: "#1DB954",
             textShadow: "0 0 8px rgba(29,185,84,0.4)",
@@ -86,7 +86,7 @@ function RankBadge({ rank }: { rank: number }) {
       <span
         className="font-medium"
         style={{
-          fontFamily: "'Courier New', monospace",
+          fontFamily: "var(--font-mono), monospace",
           fontSize: "0.8rem",
           color: "#8a94b5",
         }}
@@ -156,7 +156,7 @@ function TrackItem({ track, index }: { track: TopTrack; index: number }) {
         <p
           className="truncate font-semibold leading-tight mb-0.5"
           style={{
-            fontFamily: "'Courier New', monospace",
+            fontFamily: "var(--font-body), sans-serif",
             fontSize: "0.8rem",
             color: isFirst ? "#e0e0f0" : "#a0a0b0",
           }}
@@ -167,7 +167,7 @@ function TrackItem({ track, index }: { track: TopTrack; index: number }) {
         <p
           className="truncate"
           style={{
-            fontFamily: "'Courier New', monospace",
+            fontFamily: "var(--font-mono), monospace",
             fontSize: "0.65rem",
             color: "#8a94b5",
           }}
@@ -267,7 +267,7 @@ function ArtistItem({ artist, index }: { artist: TopArtist; index: number }) {
         <p
           className="truncate font-semibold leading-tight mb-0.5"
           style={{
-            fontFamily: "'Courier New', monospace",
+            fontFamily: "var(--font-body), sans-serif",
             fontSize: "0.8rem",
             color: isFirst ? "#e0e0f0" : "#a0a0b0",
           }}
@@ -278,7 +278,7 @@ function ArtistItem({ artist, index }: { artist: TopArtist; index: number }) {
         <p
           className="truncate"
           style={{
-            fontFamily: "'Courier New', monospace",
+            fontFamily: "var(--font-mono), monospace",
             fontSize: "0.65rem",
             color: "#8a94b5",
           }}
@@ -426,7 +426,7 @@ export default function TopTracksArtists() {
             onClick={() => setActiveTab(tab)}
             className="flex-1 py-1.5 rounded-md border border-[#1a2040] transition-colors duration-150"
             style={{
-              fontFamily: "'Courier New', monospace",
+              fontFamily: "var(--font-mono), monospace",
               fontSize: "0.75rem",
               textTransform: "uppercase",
               color: activeTab === tab ? "#e0e0f0" : "#8a94b5",
@@ -446,7 +446,7 @@ export default function TopTracksArtists() {
             onClick={() => setTimeRange(range)}
             className="flex-1 py-1 rounded-md border border-[#1a2040] transition-colors duration-150"
             style={{
-              fontFamily: "'Courier New', monospace",
+              fontFamily: "var(--font-mono), monospace",
               fontSize: "0.7rem",
               color: timeRange === range ? "#e0e0f0" : "#8a94b5",
               background: timeRange === range ? "rgba(255,255,255,0.02)" : "transparent",
@@ -482,7 +482,7 @@ export default function TopTracksArtists() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="flex items-center justify-center py-10 gap-2 h-[200px]"
-              style={{ color: "#8a94b5", fontFamily: "'Courier New', monospace" }}
+              style={{ color: "#8a94b5", fontFamily: "var(--font-mono), monospace" }}
             >
               <SpotifyLogo size={16} />
               <span style={{ fontSize: "0.75rem" }}>SIGNAL_LOST</span>
@@ -496,7 +496,7 @@ export default function TopTracksArtists() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="flex items-center justify-center py-10 gap-2 h-[200px]"
-              style={{ color: "#8a94b5", fontFamily: "'Courier New', monospace" }}
+              style={{ color: "#8a94b5", fontFamily: "var(--font-mono), monospace" }}
             >
               <span style={{ fontSize: "0.75rem" }}>No data found.</span>
             </motion.div>

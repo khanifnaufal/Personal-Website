@@ -21,7 +21,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Khanif Naufal Website Portofolio",
+  title: "Khanif's Portfolio",
   description:
     "Portfolio of Muhammad Khanif Naufal — Full-Stack Developer and Machine Learning/Deep Learning Engineer. Building the future through code and intelligence.",
   keywords: [

@@ -89,7 +89,7 @@ function PlaylistCard({ data, index }: { data: PlaylistData; index: number }) {
 
       {/* Info */}
       <div className="flex-1 min-w-0 z-10">
-        <h4 className="text-[0.85rem] font-medium text-[#e0e0f0] truncate" style={{ fontFamily: "'Courier New', monospace" }}>
+        <h4 className="text-[0.85rem] font-medium text-[#e0e0f0] truncate" style={{ fontFamily: "var(--font-body), sans-serif" }}>
           {data.name}
         </h4>
         <p className="text-[0.65rem] text-[#8a94b5] font-mono mt-1">
@@ -211,7 +211,7 @@ export default function PlaylistCarousel() {
     <div className="w-full flex flex-col h-full rounded-xl p-4 bg-[#10152a] border border-[#1a2040]">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-xs font-bold tracking-[0.15em] text-[#1DB954]" style={{ fontFamily: "'Courier New', monospace" }}>
+        <h3 className="text-xs font-bold tracking-[0.15em] text-[#1DB954]" style={{ fontFamily: "var(--font-mono), monospace" }}>
           // MY_PLAYLISTS
         </h3>
 
@@ -235,9 +235,9 @@ export default function PlaylistCarousel() {
       </div>
 
       {/* Grid Area */}
-      <div className="flex-1 relative overflow-hidden min-h-[220px]">
+      <div className="flex-1 relative overflow-hidden min-h-[356px] min-[480px]:min-h-[220px]">
         {loading ? (
-          <div className="grid grid-cols-2 gap-3 h-full">
+          <div className="grid grid-cols-1 min-[480px]:grid-cols-2 gap-3 h-full">
             {Array.from({ length: 4 }).map((_, i) => (
               <SkeletonCard key={i} />
             ))}
@@ -252,7 +252,7 @@ export default function PlaylistCarousel() {
               animate="center"
               exit="exit"
               transition={{ duration: 0.3, type: "tween", ease: "easeInOut" }}
-              className="grid grid-cols-2 gap-3 absolute inset-0"
+              className="grid grid-cols-1 min-[480px]:grid-cols-2 gap-3 absolute inset-0"
             >
               {currentItems.map((playlist, idx) => (
                 <PlaylistCard key={playlist.id} data={playlist} index={idx} />
