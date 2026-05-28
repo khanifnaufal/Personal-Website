@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import { PERSONAL_INFO } from "@/lib/constants";
+import { useIsMobile } from "@/lib/useIsMobile";
 
 const ROLES = ["Full-Stack Developer", "AI & Machine Learning Engineer", "Research & Data Scientist"];
 const TYPE_SPEED = 80;
@@ -60,6 +61,8 @@ function TypewriterTagline() {
 }
 
 export default function BaseStation() {
+  const isMobile = useIsMobile();
+
   const scrollTo = (id: string) => {
     window.dispatchEvent(new CustomEvent("nav-warp"));
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -68,7 +71,7 @@ export default function BaseStation() {
   return (
     <section
       id="base-station"
-      className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden"
+      className="relative z-10 min-h-screen flex items-center justify-center px-6 overflow-hidden"
     >
       {/* Scanline overlay */}
       <div className="absolute inset-0 scanlines pointer-events-none" />
@@ -79,7 +82,7 @@ export default function BaseStation() {
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
+          transition={{ duration: 0.6, delay: isMobile ? 0 : 0.8 }}
           className="inline-flex items-center gap-2 px-5 py-2 rounded-full glass-light mb-10"
         >
           <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse-glow" />
@@ -95,7 +98,7 @@ export default function BaseStation() {
         <motion.p
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 1.0 }}
+          transition={{ duration: 0.5, delay: isMobile ? 0 : 1.0 }}
           className="text-text-secondary text-sm md:text-base tracking-[0.3em] uppercase mb-4"
           style={{ fontFamily: "var(--font-mono), monospace" }}
         >
@@ -106,7 +109,7 @@ export default function BaseStation() {
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.2 }}
+          transition={{ duration: 0.8, delay: isMobile ? 0 : 1.2 }}
           className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold mb-6 leading-[0.95] galaxy-text"
           style={{ fontFamily: "var(--font-heading), sans-serif" }}
         >
@@ -117,7 +120,7 @@ export default function BaseStation() {
         <motion.div
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
-          transition={{ duration: 0.8, delay: 1.5 }}
+          transition={{ duration: 0.8, delay: isMobile ? 0 : 1.5 }}
           className="w-32 h-[1px] mx-auto mb-6 bg-gradient-to-r from-transparent via-purple to-transparent"
         />
 
@@ -125,7 +128,7 @@ export default function BaseStation() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 1.6 }}
+          transition={{ duration: 0.6, delay: isMobile ? 0 : 1.6 }}
           className="mb-12"
         >
           <TypewriterTagline />
@@ -135,7 +138,7 @@ export default function BaseStation() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.8 }}
+          transition={{ duration: 0.6, delay: isMobile ? 0 : 1.8 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <button

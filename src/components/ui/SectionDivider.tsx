@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useIsMobile } from "@/lib/useIsMobile";
 
 interface SectionDividerProps {
   variant?: "cyan" | "purple" | "magenta";
@@ -26,20 +27,21 @@ const colors = {
 
 export default function SectionDivider({ variant = "cyan" }: SectionDividerProps) {
   const c = colors[variant];
+  const isMobile = useIsMobile();
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: false, amount: 0.5 }}
+      initial={isMobile ? { opacity: 1 } : { opacity: 0 }}
+      whileInView={isMobile ? { opacity: 1 } : { opacity: 1 }}
+      viewport={{ once: true, amount: 0.05 }}
       transition={{ duration: 0.6 }}
-      className="relative flex items-center justify-center py-8"
+      className="relative z-10 flex items-center justify-center py-8"
     >
       {/* Left line */}
       <motion.div
-        initial={{ scaleX: 0 }}
-        whileInView={{ scaleX: 1 }}
-        viewport={{ once: false }}
+        initial={isMobile ? { scaleX: 1 } : { scaleX: 0 }}
+        whileInView={isMobile ? { scaleX: 1 } : { scaleX: 1 }}
+        viewport={{ once: true }}
         transition={{ duration: 0.8, ease: "easeOut" }}
         className={`flex-1 h-[1px] bg-gradient-to-r ${c.line} origin-right`}
       />
@@ -58,9 +60,9 @@ export default function SectionDivider({ variant = "cyan" }: SectionDividerProps
 
       {/* Right line */}
       <motion.div
-        initial={{ scaleX: 0 }}
-        whileInView={{ scaleX: 1 }}
-        viewport={{ once: false }}
+        initial={isMobile ? { scaleX: 1 } : { scaleX: 0 }}
+        whileInView={isMobile ? { scaleX: 1 } : { scaleX: 1 }}
+        viewport={{ once: true }}
         transition={{ duration: 0.8, ease: "easeOut" }}
         className={`flex-1 h-[1px] bg-gradient-to-r ${c.line} origin-left`}
       />

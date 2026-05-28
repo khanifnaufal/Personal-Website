@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform, useMotionTemplate } from "framer-motion";
 import { PROJECTS, type Project } from "@/lib/constants";
 import SectionWrapper from "@/components/ui/SectionWrapper";
@@ -15,7 +15,7 @@ const cardVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } },
 };
 
-function ProjectCard({ project }: { project: Project }) {
+function ProjectCard({ project, show3D }: { project: Project; show3D: boolean }) {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -53,22 +53,22 @@ function ProjectCard({ project }: { project: Project }) {
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.9 }}
       transition={{ duration: 0.4 }}
-      style={{
+      style={show3D ? {
         rotateX,
         rotateY,
         transformStyle: "preserve-3d",
-      }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
+      } : {}}
+      onMouseMove={show3D ? handleMouseMove : undefined}
+      onMouseLeave={show3D ? handleMouseLeave : undefined}
       className="glass-card rounded-2xl overflow-hidden group relative flex flex-col will-change-transform"
     >
       {/* Glare effect */}
       <motion.div 
         className="pointer-events-none absolute inset-0 z-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 mix-blend-overlay"
-        style={{ background: glareBackground }}
+        style={show3D ? { background: glareBackground } : {}}
       />
       
-      <div className="relative h-48 overflow-hidden bg-space-black/50" style={{ transform: "translateZ(20px)" }}>
+      <div className="relative h-48 overflow-hidden bg-space-black/50" style={show3D ? { transform: "translateZ(20px)" } : {}}>
         {/* Background Glow */}
         <div className="absolute inset-0 bg-gradient-to-br from-cyan/10 via-purple/10 to-magenta/10 z-0" />
         
@@ -100,7 +100,7 @@ function ProjectCard({ project }: { project: Project }) {
         <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan/30 to-transparent z-20" />
       </div>
 
-      <div className="p-6 flex flex-col flex-1" style={{ transform: "translateZ(30px)" }}>
+      <div className="p-6 flex flex-col flex-1" style={show3D ? { transform: "translateZ(30px)" } : {}}>
         <div className="flex-1">
           <h3 className="text-lg font-semibold text-text-primary mb-2 group-hover:text-cyan transition-colors" style={{ fontFamily: "var(--font-heading), sans-serif" }}>{project.title}</h3>
           <p className="text-text-secondary text-sm leading-relaxed mb-4">
@@ -118,7 +118,7 @@ function ProjectCard({ project }: { project: Project }) {
           </div>
         </div>
 
-        <div className="flex items-center gap-3 mt-auto" style={{ transform: "translateZ(20px)" }}>
+        <div className="flex items-center gap-3 mt-auto" style={show3D ? { transform: "translateZ(20px)" } : {}}>
           {project.liveUrl && (
             <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 rounded-lg text-xs tracking-wider uppercase glass-light text-text-primary hover:text-cyan transition-all" style={{ fontFamily: "var(--font-mono)" }}>
               <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
@@ -139,7 +139,15 @@ function ProjectCard({ project }: { project: Project }) {
 
 export default function MissionLogs({ projects }: { projects?: Project[] }) {
   const [activeFilter, setActiveFilter] = useState("All");
+  const [isMobile, setIsMobile] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
+  useEffect(() => {
+    setMounted(true);
+    setIsMobile(window.innerWidth < 768 || window.matchMedia("(pointer: coarse)").matches);
+  }, []);
+
+  const show3D = mounted && !isMobile;
   const displayProjects = projects && projects.length > 0 ? projects : PROJECTS;
 
   const filters = useMemo(() => {
@@ -188,10 +196,18 @@ export default function MissionLogs({ projects }: { projects?: Project[] }) {
         </div>
       </div>
 
-      <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.1 }} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto" style={{ perspective: 1500 }}>
+      <motion.div 
+        variants={containerVariants} 
+        initial={isMobile ? "visible" : "hidden"} 
+        whileInView={isMobile ? "visible" : "visible"} 
+        animate={isMobile ? "visible" : undefined}
+        viewport={{ once: true, amount: 0.05 }} 
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto" 
+        style={show3D ? { perspective: 1500 } : {}}
+      >
         <AnimatePresence mode="popLayout">
           {filteredProjects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
+            <ProjectCard key={project.id} project={project} show3D={show3D} />
           ))}
         </AnimatePresence>
       </motion.div>

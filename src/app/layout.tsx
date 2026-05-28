@@ -70,7 +70,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen overflow-x-hidden">{children}</body>
+      <body className="min-h-screen overflow-x-clip">{children}</body>
     </html>
   );
 }

@@ -4,13 +4,16 @@ import { motion } from "framer-motion";
 import SpotifyNowPlaying from "./SpotifyNowPlaying";
 import TopTracksArtists from "./TopTracksArtists";
 import PlaylistCarousel from "./PlaylistCarousel";
+import { useIsMobile } from "@/lib/useIsMobile";
 
 export default function SpotifySection() {
+  const isMobile = useIsMobile();
+
   return (
     <div className="w-full mt-12 mb-12">
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+        whileInView={isMobile ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
         viewport={{ once: true }}
         className="glass-card rounded-3xl overflow-hidden border border-white/10 bg-black/60 backdrop-blur-2xl shadow-2xl shadow-spotify/5"
       >

@@ -6,6 +6,7 @@ import { PILOT_PROFILE, SKILLS, type SkillCategory } from "@/lib/constants";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 import GlowIcon from "@/components/ui/GlowIcon";
 import SpotifySection from "@/components/spotify/SpotifySection";
+import { useIsMobile } from "@/lib/useIsMobile";
 
 const categories: SkillCategory[] = ["Frontend", "Backend", "Tools & Database"];
 
@@ -16,6 +17,8 @@ const categoryColors: Record<SkillCategory, string> = {
 };
 
 export default function PilotProfile() {
+  const isMobile = useIsMobile();
+
   return (
     <SectionWrapper id="pilot-profile" label="PILOT_PROFILE">
       <div className="text-center mb-16">
@@ -33,9 +36,9 @@ export default function PilotProfile() {
       <div className="max-w-6xl mx-auto">
         {/* Profile Info Card */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
+          initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          whileInView={isMobile ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.05 }}
           transition={{ duration: 0.6 }}
           className="glass-card rounded-3xl p-8 md:p-12 mb-16 relative overflow-hidden"
         >
@@ -196,10 +199,10 @@ export default function PilotProfile() {
 
         {/* Telemetry Data (Highlight Metrics) */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          whileInView={isMobile ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.05 }}
+          transition={{ duration: 0.6, delay: isMobile ? 0 : 0.2 }}
           className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20"
         >
           {[

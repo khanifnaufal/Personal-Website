@@ -59,7 +59,7 @@ body {
   background: var(--color-space-black);
   color: var(--color-text-primary);
   font-family: var(--font-body), system-ui, sans-serif;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 ::selection {

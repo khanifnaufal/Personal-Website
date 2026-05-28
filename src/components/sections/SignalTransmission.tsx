@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { PILOT_PROFILE } from "@/lib/constants";
 import SectionWrapper from "@/components/ui/SectionWrapper";
+import { useIsMobile } from "@/lib/useIsMobile";
 
 const SOCIAL_CHANNELS = [
   {
@@ -65,6 +66,8 @@ const colorVariants: Record<string, string> = {
 };
 
 export default function SignalTransmission() {
+  const isMobile = useIsMobile();
+
   return (
     <SectionWrapper id="signal-transmission" label="SIGNAL_TRANSMISSION">
       <div className="text-center mb-16">
@@ -89,10 +92,10 @@ export default function SignalTransmission() {
             href={channel.link}
             target="_blank"
             rel="noopener noreferrer"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            whileInView={isMobile ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
+            transition={{ duration: 0.5, delay: isMobile ? 0 : index * 0.1 }}
             className={`flex items-center gap-6 p-6 rounded-2xl bg-gradient-to-br border transition-all duration-300 group ${colorVariants[channel.color]}`}
           >
             <div className={`p-4 rounded-xl bg-space-black border border-current flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}>
