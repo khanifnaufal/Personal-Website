@@ -67,10 +67,7 @@ export default function HistorySection() {
         ))}
       </div>
 
-      {/* Corner mark */}
-      <div className="absolute bottom-8 right-8 md:right-16 font-mono text-[10px] tracking-widest text-warm-text-muted uppercase">
-        03 / 05
-      </div>
+
     </div>
   );
 }

@@ -51,10 +51,7 @@ export default function ContactSection() {
         </div>
       </div>
 
-      {/* Corner mark */}
-      <div className="absolute bottom-8 right-8 md:right-16 font-mono text-[10px] tracking-widest text-warm-text-muted uppercase">
-        05 / 05
-      </div>
+
     </div>
   );
 }

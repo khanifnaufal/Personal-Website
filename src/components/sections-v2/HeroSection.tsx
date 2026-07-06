@@ -75,10 +75,7 @@ export default function HeroSection() {
         className="font-sans text-base md:text-lg text-warm-text-secondary max-w-md leading-relaxed mb-10"
       />
 
-      {/* Corner mark */}
-      <div className="absolute bottom-8 right-8 md:right-16 font-mono text-[10px] tracking-widest text-warm-text-muted uppercase">
-        01 / 05
-      </div>
+
     </div>
   );
 }

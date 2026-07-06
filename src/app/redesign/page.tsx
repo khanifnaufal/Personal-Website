@@ -8,6 +8,7 @@ import HistorySection from "@/components/sections-v2/HistorySection";
 import ProjectsSection from "@/components/sections-v2/ProjectsSection";
 import ContactSection from "@/components/sections-v2/ContactSection";
 import DockNav from "@/components/sections-v2/DockNav";
+import SectionIndexRail from "@/components/sections-v2/SectionIndexRail";
 
 const SECTIONS = [
   { id: "hero",     component: HeroSection     },
@@ -160,6 +161,9 @@ export default function RedesignPage() {
 
       {/* DockNav — floating pill, bottom-center */}
       <DockNav activeIndex={activeSection} onNavigate={navigateTo} />
+
+      {/* SectionIndexRail — wayfinding column, right edge, vertically centered */}
+      <SectionIndexRail activeIndex={activeSection} onNavigate={navigateTo} />
 
     </div>
   );
