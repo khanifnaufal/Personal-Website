@@ -30,6 +30,29 @@
   --font-heading: var(--font-orbitron);
   --font-body: var(--font-inter);
   --font-mono: var(--font-jetbrains-mono);
+  --font-sans: var(--font-inter);
+
+  /* Grayscale Palette Custom (Warm Gray) */
+  --color-warm-bg: #F4F3EF;
+  --color-warm-surface: #EBEAE5;
+  --color-warm-border: #D8D7D0;
+  --color-warm-text-muted: #8A8A86;
+  --color-warm-text-secondary: #5C5C58;
+  --color-warm-text-primary: #1C1C1A;
+  --color-warm-dock-bg: #1C1C1A;
+
+  /* 
+     Spacing Scale: 8pt grid system.
+     We rely on Tailwind v4's default spacing scale which maps perfectly:
+     - 4px  -> space-1  (0.25rem)
+     - 8px  -> space-2  (0.5rem)
+     - 16px -> space-4  (1rem)
+     - 24px -> space-6  (1.5rem)
+     - 32px -> space-8  (2rem)
+     - 48px -> space-12 (3rem)
+     - 64px -> space-16 (4rem)
+     - 96px -> space-24 (6rem)
+  */
 
   /* Spacing / Sizing */
   --section-padding: 6rem;

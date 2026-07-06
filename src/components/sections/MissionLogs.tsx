@@ -35,7 +35,7 @@ function ProjectCard({ project, show3D }: { project: Project; show3D: boolean })
     const height = rect.height;
     const mouseX = e.clientX - rect.left;
     const mouseY = e.clientY - rect.top;
-    
+
     x.set(mouseX / width - 0.5);
     y.set(mouseY / height - 0.5);
   };
@@ -46,7 +46,7 @@ function ProjectCard({ project, show3D }: { project: Project; show3D: boolean })
   };
 
   return (
-    <motion.div 
+    <motion.div
       variants={cardVariants}
       layout
       initial={{ opacity: 0, scale: 0.9 }}
@@ -63,20 +63,20 @@ function ProjectCard({ project, show3D }: { project: Project; show3D: boolean })
       className="glass-card rounded-2xl overflow-hidden group relative flex flex-col will-change-transform"
     >
       {/* Glare effect */}
-      <motion.div 
+      <motion.div
         className="pointer-events-none absolute inset-0 z-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 mix-blend-overlay"
         style={show3D ? { background: glareBackground } : {}}
       />
-      
+
       <div className="relative h-48 overflow-hidden bg-space-black/50" style={show3D ? { transform: "translateZ(20px)" } : {}}>
         {/* Background Glow */}
         <div className="absolute inset-0 bg-gradient-to-br from-cyan/10 via-purple/10 to-magenta/10 z-0" />
-        
+
         {/* Project Image */}
         {project.image ? (
           <div className="absolute inset-0 z-10">
-            <img 
-              src={project.image} 
+            <img
+              src={project.image}
               alt={project.title}
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
               onError={(e) => {
@@ -95,7 +95,7 @@ function ProjectCard({ project, show3D }: { project: Project; show3D: boolean })
             </svg>
           </div>
         </div>
-        
+
         <div className="absolute top-3 right-3 px-2 py-1 rounded glass-light text-[10px] tracking-[0.15em] text-text-muted z-20" style={{ fontFamily: "var(--font-mono)" }}>{project.id}</div>
         <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan/30 to-transparent z-20" />
       </div>
@@ -154,7 +154,7 @@ export default function MissionLogs({ projects }: { projects?: Project[] }) {
     const langs = new Set<string>();
     displayProjects.forEach(p => {
       if (p.languages && p.languages.length > 0) {
-        langs.add(p.languages[0]); 
+        langs.add(p.languages[0]);
       }
     });
     const uniqueLangs = Array.from(langs).slice(0, 4);
@@ -183,11 +183,10 @@ export default function MissionLogs({ projects }: { projects?: Project[] }) {
             <button
               key={filter}
               onClick={() => setActiveFilter(filter)}
-              className={`px-4 py-1.5 rounded-full text-xs tracking-widest uppercase transition-all duration-300 ${
-                activeFilter === filter
+              className={`px-4 py-1.5 rounded-full text-xs tracking-widest uppercase transition-all duration-300 ${activeFilter === filter
                   ? "bg-cyan/20 border border-cyan text-cyan glow-text-cyan/50"
                   : "glass-card border border-white/10 text-text-secondary hover:text-text-primary hover:border-cyan/30"
-              }`}
+                }`}
               style={{ fontFamily: "var(--font-mono), monospace" }}
             >
               {filter}
@@ -196,13 +195,13 @@ export default function MissionLogs({ projects }: { projects?: Project[] }) {
         </div>
       </div>
 
-      <motion.div 
-        variants={containerVariants} 
-        initial={isMobile ? "visible" : "hidden"} 
-        whileInView={isMobile ? "visible" : "visible"} 
+      <motion.div
+        variants={containerVariants}
+        initial={isMobile ? "visible" : "hidden"}
+        whileInView={isMobile ? "visible" : "visible"}
         animate={isMobile ? "visible" : undefined}
-        viewport={{ once: true, amount: 0.05 }} 
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto" 
+        viewport={{ once: true, amount: 0.05 }}
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
         style={show3D ? { perspective: 1500 } : {}}
       >
         <AnimatePresence mode="popLayout">
