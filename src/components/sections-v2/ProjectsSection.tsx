@@ -243,7 +243,7 @@ export default function ProjectsSection({ initialProjects }: { initialProjects: 
               height={320}
               cardDistance={60}
               verticalDistance={70}
-              delay={6000}
+              delay={5000}
               pauseOnHover={true}
             >
               {filtered.map((project) => (
