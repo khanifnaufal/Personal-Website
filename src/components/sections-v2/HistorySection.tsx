@@ -61,11 +61,30 @@ export default function HistorySection() {
   const [activeCategory, setActiveCategory] = useState<ActiveCategory>("work");
   const [activeIndex, setActiveIndex] = useState(0);
   const [historyItems, setHistoryItems] = useState<(TimelineItem & { imageUrl?: string; paperUrl?: string })[]>([]);
+  const [isPaused, setIsPaused] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
+  const [lastInteractionTime, setLastInteractionTime] = useState(0); // Timestamp for last manual interaction
 
+  // Autoplay functionality
+  useEffect(() => {
+    if (isPaused || isHovering || historyItems.length <= 1) {
+      return;
+    }
+
+    const autoplayInterval = setInterval(() => {
+      setActiveIndex((prevIndex) => (prevIndex + 1) % historyItems.length);
+    }, 4000); // Autoplay every 4 seconds
+
+    return () => clearInterval(autoplayInterval);
+  }, [activeIndex, activeCategory, isPaused, isHovering, historyItems]);
+
+  // Reset index when category changes
   useEffect(() => {
     const items = getHistoryItems(activeCategory);
     setHistoryItems(items);
-    setActiveIndex(0); // Reset index when category changes
+    setActiveIndex(0); 
+    setIsPaused(false); // Resume autoplay when category changes
+    setLastInteractionTime(0); // Reset interaction time
   }, [activeCategory]);
 
   // Effect to reset index if historyItems change and are empty
@@ -90,9 +109,23 @@ export default function HistorySection() {
 
   // No-op for removed state
 
+  // Resume autoplay after 5 seconds of idle time following a manual interaction
+  useEffect(() => {
+    if (isPaused && !isHovering && lastInteractionTime > 0) {
+      const idleTimer = setTimeout(() => {
+        setIsPaused(false);
+        setLastInteractionTime(0); // Reset for next interaction
+      }, 4000); // 5 seconds idle before resuming
+
+      return () => clearTimeout(idleTimer);
+    }
+  }, [isPaused, isHovering, lastInteractionTime]);
+
   const goToIndex = (index: number) => {
     if (index >= 0 && index < historyItems.length) {
       setActiveIndex(index);
+      setIsPaused(true); // Pause autoplay on manual interaction
+      setLastInteractionTime(Date.now()); // Record interaction time
     }
   };
 
@@ -106,7 +139,7 @@ export default function HistorySection() {
 
   return (
     <div className="relative flex flex-col justify-center px-8 md:px-16 lg:px-24 py-20 overflow-hidden">
-      <div className="max-w-6xl mx-auto w-full"> {/* New wrapper for alignment */}
+      <div className="max-w-6xl mx-auto w-full mb-12"> {/* New wrapper for alignment */}
         {/* Eyebrow */}
         <p className="font-mono text-xs tracking-[0.2em] uppercase text-warm-text-muted mb-6">
           History
@@ -149,7 +182,11 @@ export default function HistorySection() {
 
       <div className="flex flex-col md:flex-row gap-12 max-w-6xl mx-auto w-full"> {/* Changed to responsive flex columns */}
         {/* Left Column: Slider and Content */}
-        <div className="flex-1 flex w-full"> {/* Added flex-1, removed max-w-2xl to let flex handle sizing */}
+        <div 
+          className="flex-1 flex w-full"
+          onMouseEnter={() => setIsHovering(true)}
+          onMouseLeave={() => setIsHovering(false)}
+        >
           {/* Vertical Slider Sub-column */}
           <div className="flex flex-col items-center pr-8"> {/* Slider with right padding */}
             <motion.button
@@ -214,7 +251,7 @@ export default function HistorySection() {
                     <p className="font-mono text-xs text-warm-text-muted leading-relaxed pt-0.5">
                       {currentItem.period}
                     </p>
-                    <p className="font-sans text-sm text-warm-text-secondary leading-relaxed mt-2">
+                    <p className="font-sans text-sm text-warm-text-secondary leading-relaxed mt-2 text-justify">
                       {Array.isArray(currentItem.description)
                         ? currentItem.description.map((line, i) => (
                             <React.Fragment key={i}>
