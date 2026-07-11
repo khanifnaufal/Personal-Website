@@ -64,7 +64,7 @@ ${data.message}
     return {
       success: true,
       errors: null,
-      message: "Signal transmitted successfully! I'll respond soon.",
+      message: "Email sent successfully! I'll respond soon.",
     };
   } catch (error) {
     console.error("Failed to send email:", error);

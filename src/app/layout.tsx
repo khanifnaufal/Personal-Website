@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
-import { Orbitron, JetBrains_Mono, Inter } from "next/font/google";
+import { Orbitron, JetBrains_Mono, Inter, Geist } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const orbitron = Orbitron({
   variable: "--font-orbitron",
@@ -54,7 +57,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${orbitron.variable} ${jetbrainsMono.variable} ${inter.variable} dark`}
+      className={cn("dark", orbitron.variable, jetbrainsMono.variable, inter.variable, "font-sans", geist.variable)}
       suppressHydrationWarning
     >
       <head>

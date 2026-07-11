@@ -77,6 +77,8 @@ export interface TimelineItem {
   description: string | string[];
   tags?: string[];
   link?: string;
+  imageUrl?: string;
+  paperUrl?: string;
 }
 
 export const HISTORY_CATEGORIES: { key: HistoryCategory; label: string; icon: string }[] = [
@@ -100,6 +102,7 @@ export const FLIGHT_HISTORY: TimelineItem[] = [
       "Optimized database structure to accelerate monthly performance report retrieval."
     ],
     tags: ["PHP", "Laravel", "MySQL"],
+    imageUrl: "/diskominfo.jpeg",
   },
   {
     id: "WE_002",
@@ -113,16 +116,21 @@ export const FLIGHT_HISTORY: TimelineItem[] = [
       "Prepared and submitted administrative reports accurately and on time, ensuring data integrity and accountability."
     ],
     tags: ["Leadership", "Management", "Reporting"],
+    imageUrl: "/Ketua-KPPS.png",
   },
-  // Academic Background
   {
-    id: "AC_001",
-    category: "academic",
-    title: "S1 Teknik Informatika",
-    organization: "Universitas Dian Nuswantoro",
-    period: "Sep 2022 — Feb 2026",
-    description: "Bachelor of Computer Science with focus on Fullstack Developer and machine learning. GPA: 3.90/4.00.",
-    tags: ["Computer Science", "GPA 3.90"],
+    id: "WE_003",
+    category: "work",
+    title: "Wirausaha Merdeka MBKM - Semarang, Indonesia",
+    organization: "FishyBites.id",
+    period: "Aug 2024 - Jan 2025",
+    description: [
+      "Founded and led FishyBites.id, an F&B startup specializing in Korean- style bungeoppang, as part of the Precision Smart Technopreneurship program under Wirausaha Merdeka MBKM.",
+      "Led a team through end-to-end business development including product ideation, Business Model Canvas, market validation, financial planning, and prototype development with a final score of 87.63/100.",
+      "Pitched and demonstrated the business at the program's Expo & Demoday, receiving a perfect score of 100/100 for sales implementation, validating the product's market readiness."
+    ],
+    tags: ["Entrepreneurship", "F&B", "Startup", "Business Development", "Leadership", "Marketing"],
+    imageUrl: "/wirausaha_merdeka.jpeg",
   },
 
   // Certifications
@@ -135,6 +143,7 @@ export const FLIGHT_HISTORY: TimelineItem[] = [
     description: "Professional certification covering the fundamentals of deep learning, including training and deploying neural networks.",
     tags: ["Deep Learning", "NVIDIA", "AI"],
     link: "https://drive.google.com/file/d/1iMfMUMIkDcoFy9_QDnabI5ZSJzl3ffCU/view?usp=sharing",
+    imageUrl: "/NVIDIA.png",
   },
   {
     id: "CE_002",
@@ -145,6 +154,7 @@ export const FLIGHT_HISTORY: TimelineItem[] = [
     description: "National competency certification in the field of data science, validating skills in data analysis, modeling, and visualization.",
     tags: ["Data Science", "BNSP", "Analytics"],
     link: "https://drive.google.com/file/d/1B8UEYXPp9RLJttzgHQWBxs1BgfOjFKfO/view?usp=drive_link",
+    imageUrl: "/BNSP.png",
   },
   {
     id: "CE_003",
@@ -155,6 +165,7 @@ export const FLIGHT_HISTORY: TimelineItem[] = [
     description: "Standardized test to measure the English language ability of non-native speakers wishing to enroll in English-speaking universities.",
     tags: ["English", "Language Proficiency", "TOEFL"],
     link: "https://drive.google.com/file/d/1EeydCLCY3twvnjBeZFh78_uXcpfCaK5a/view?usp=drive_link",
+    imageUrl: "/TOEFL.png",
   },
 
   // Academic Research
@@ -167,6 +178,7 @@ export const FLIGHT_HISTORY: TimelineItem[] = [
     description: "A comprehensive comparative study on various CNN architectures for accurate mushroom species classification, published in an IEEE-indexed journal.",
     tags: ["Scopus Q4", "Deep Learning", "CNN", "Image Classification"],
     link: "https://ieeexplore.ieee.org/document/11291885",
+    imageUrl: "/jurnal-Q4.png",
   },
   {
     id: "RE_002",
@@ -177,6 +189,7 @@ export const FLIGHT_HISTORY: TimelineItem[] = [
     description: "Research focusing on optimizing the InceptionV3 architecture to improve accuracy in classifying mushroom species, published in Jurnal Masyarakat Informatika (JMASIF).",
     tags: ["SINTA 3", "InceptionV3", "Deep Learning", "Agriculture AI"],
     link: "https://ejournal.undip.ac.id/index.php/jmasif/article/view/73005/29984",
+    imageUrl: "/jurnal-sinta-3.png",
   },
 ];
 
