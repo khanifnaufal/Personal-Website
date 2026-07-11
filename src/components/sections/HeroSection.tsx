@@ -3,7 +3,7 @@
 import BlurText from "@/components/ui/BlurText";
 import { ShimmeringText } from "@/components/ui/shimmering-text";
 
-import { HeroCard } from "@/components/sections-v2/HeroCard";
+import { HeroCard } from "@/components/ui/HeroCard";
 
 interface HeroSectionProps {
   onNavigate: (index: number) => void;

@@ -1,16 +1,13 @@
-import HomeClient from "@/components/ui/HomeClient";
 import { getGithubProjects } from "@/lib/github";
+import RedesignShell from "@/components/layout/RedesignShell";
 
-export default async function Home() {
-  const githubProjects = await getGithubProjects();
+/**
+ * Server Component — Next.js fetches GitHub data here (with revalidate: 600
+ * set inside getGithubProjects). The client shell receives the data as props,
+ * so there is zero client-side GitHub API call on page load.
+ */
+export default async function RedesignPage() {
+  const projects = await getGithubProjects();
 
-  return (
-    <main className="relative">
-      {/* Fixed placeholder for 3D background replacement */}
-      <div className="fixed inset-0 pointer-events-none" />
-
-      {/* Client interface and sections coordination */}
-      <HomeClient githubProjects={githubProjects} />
-    </main>
-  );
+  return <RedesignShell projects={projects} />;
 }

@@ -1,5 +1,5 @@
 import { getGithubProjects } from "@/lib/github";
-import ProjectsSection from "./ProjectsSection";
+import ProjectsSection from "@/components/sections/ProjectsSection";
 
 /**
  * Server component — runs on the server, fetch is cached by Next.js

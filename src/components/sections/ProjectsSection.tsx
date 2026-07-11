@@ -2,7 +2,7 @@
 
 import { useRef, forwardRef, useState, useMemo } from "react";
 // @ts-ignore
-import CardSwapComponent, { Card as CardComponent } from "@/components/CardSwap";
+import CardSwapComponent, { Card as CardComponent } from "@/components/ui/CardSwap";
 import { Project } from "@/lib/constants";
 
 const CardSwap = CardSwapComponent as any;

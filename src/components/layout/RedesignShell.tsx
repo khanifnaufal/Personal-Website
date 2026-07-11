@@ -2,13 +2,13 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import HeroSection from "@/components/sections-v2/HeroSection";
-import ProfileSection from "@/components/sections-v2/ProfileSection";
-import HistorySection from "@/components/sections-v2/HistorySection";
-import ProjectsSection from "@/components/sections-v2/ProjectsSection";
-import ContactSection from "@/components/sections-v2/ContactSection";
-import DockNav from "@/components/sections-v2/DockNav";
-import SectionIndexRail from "@/components/sections-v2/SectionIndexRail";
+import HeroSection from "@/components/sections/HeroSection";
+import ProfileSection from "@/components/sections/ProfileSection";
+import HistorySection from "@/components/sections/HistorySection";
+import ProjectsSection from "@/components/sections/ProjectsSection";
+import ContactSection from "@/components/sections/ContactSection";
+import DockNav from "@/components/layout/DockNav";
+import SectionIndexRail from "@/components/layout/SectionIndexRail";
 import { Project } from "@/lib/constants";
 
 const SECTION_IDS = ["hero", "profile", "history", "projects", "contact"] as const;

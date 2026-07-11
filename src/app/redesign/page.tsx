@@ -1,5 +1,5 @@
 import { getGithubProjects } from "@/lib/github";
-import RedesignShell from "@/components/sections-v2/RedesignShell";
+import RedesignShell from "@/components/layout/RedesignShell";
 
 /**
  * Server Component — Next.js fetches GitHub data here (with revalidate: 600
