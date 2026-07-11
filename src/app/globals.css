@@ -242,6 +242,7 @@ body {
   animation: galaxy-shift 6s ease-in-out infinite;
 }
 
+
 @keyframes galaxy-shift {
   0% {
     background-position: 0% 50%;

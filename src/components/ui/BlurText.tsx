@@ -49,6 +49,8 @@ interface BlurTextProps {
   onAnimationComplete?: () => void;
   /** Duration (seconds) for each segment's animation. */
   stepDuration?: number;
+  /** Whether to trigger animation only once on first load. */
+  animateOnFirstLoad?: boolean;
 }
 
 /* ── Helpers ────────────────────────────────────────────────────── */
@@ -93,6 +95,7 @@ export default function BlurText({
   easing = (t) => t,
   onAnimationComplete,
   stepDuration = 0.35,
+  animateOnFirstLoad,
 }: BlurTextProps) {
   const elements =
     animateBy === "words" ? text.split(" ") : text.split("");
