@@ -14,16 +14,15 @@ import { Project } from "@/lib/constants";
 const SECTION_IDS = ["hero", "profile", "history", "projects", "contact"] as const;
 
 const STATIC_SECTIONS = [
-  { id: "hero",     component: HeroSection     },
   { id: "profile",  component: ProfileSection  },
   { id: "history",  component: HistorySection  },
   { id: "contact",  component: ContactSection  },
 ] as const;
 
 const FADE_VARIANTS = {
-  enter:   { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 0.42, ease: [0.4, 0, 0.2, 1] } },
-  exit:    { opacity: 0, transition: { duration: 0.26, ease: [0.4, 0, 1, 1] } },
+  enter:   { opacity: 0, filter: 'blur(8px)' },
+  visible: { opacity: 1, filter: 'blur(0px)', transition: { duration: 0.42, ease: [0.4, 0, 0.2, 1] } },
+  exit:    { opacity: 0, filter: 'blur(8px)', transition: { duration: 0.26, ease: [0.4, 0, 1, 1] } },
 } as const;
 
 const THROTTLE_MS = 800;
@@ -78,18 +77,16 @@ export default function RedesignShell({ projects }: Props) {
   const activeSectionId = SECTION_IDS[activeSection];
 
   function renderSection() {
+    if (activeSectionId === "hero") {
+      return <HeroSection onNavigate={navigateTo} />;
+    }
     if (activeSectionId === "projects") {
       return <ProjectsSection initialProjects={projects} />;
     }
     const found = STATIC_SECTIONS.find((s) => s.id === activeSectionId);
     if (!found) return null;
+    
     const Comp = found.component;
-    
-    if (activeSectionId === "hero") {
-      const HeroComp = Comp as any;
-      return <HeroComp onNavigate={navigateTo} />;
-    }
-    
     return <Comp />;
   }
 
