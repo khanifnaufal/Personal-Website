@@ -84,6 +84,12 @@ export default function RedesignShell({ projects }: Props) {
     const found = STATIC_SECTIONS.find((s) => s.id === activeSectionId);
     if (!found) return null;
     const Comp = found.component;
+    
+    if (activeSectionId === "hero") {
+      const HeroComp = Comp as any;
+      return <HeroComp onNavigate={navigateTo} />;
+    }
+    
     return <Comp />;
   }
 

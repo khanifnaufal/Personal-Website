@@ -3,7 +3,13 @@
 import BlurText from "@/components/ui/BlurText";
 import { ShimmeringText } from "@/components/ui/shimmering-text";
 
-export default function HeroSection() {
+import ProfileCard from "@/components/ProfileCard";
+
+interface HeroSectionProps {
+  onNavigate: (index: number) => void;
+}
+
+export default function HeroSection({ onNavigate }: HeroSectionProps) {
   return (
     <div className="absolute inset-0 flex flex-col justify-center px-8 md:px-16 lg:px-24">
 
@@ -64,6 +70,24 @@ export default function HeroSection() {
         className="font-sans text-base md:text-lg text-warm-text-secondary max-w-md leading-relaxed mb-10"
       />
 
+      {/* Profile Card Container - Centered vertically on the right side */}
+      <div className="absolute inset-y-0 right-0 w-1/2 hidden lg:flex items-center justify-center pr-20">
+        <div className="relative w-full max-w-[400px] flex justify-center">
+          <ProfileCard
+            avatarUrl="/profile2.png"
+            behindGlowSize="50%"
+            name="Khanif Naufal"
+            title="Fullstack Developer"
+            handle="khanifnaufal"
+            status="Open to opportunities"
+            contactText="Get in touch"
+            showUserInfo={true}
+            enableTilt={true}
+            enableMobileTilt={false}
+            onContactClick={() => onNavigate(4)}
+          />
+        </div>
+      </div>
 
     </div>
   );
