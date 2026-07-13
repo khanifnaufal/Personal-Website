@@ -20,9 +20,10 @@ interface TooltipPos {
 interface DockNavProps {
   activeIndex: number;
   onNavigate: (index: number) => void;
+  isMobile?: boolean;
 }
 
-export default function DockNav({ activeIndex, onNavigate }: DockNavProps) {
+export default function DockNav({ activeIndex, onNavigate, isMobile }: DockNavProps) {
   const [tooltip, setTooltip] = useState<{ label: string; pos: TooltipPos } | null>(null);
   const wrapperRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -44,8 +45,9 @@ export default function DockNav({ activeIndex, onNavigate }: DockNavProps) {
   return (
     <>
       {/* ── Tooltip — position:fixed, centered on hovered button ── */}
-      <AnimatePresence>
-        {tooltip && (
+      {!isMobile && (
+        <AnimatePresence>
+          {tooltip && (
           <motion.span
             key={tooltip.label}
             initial={{ opacity: 0, y: 6 }}
@@ -74,11 +76,12 @@ export default function DockNav({ activeIndex, onNavigate }: DockNavProps) {
               padding: "5px 10px",
               borderRadius: 5,
             }}
-          >
-            {tooltip.label}
-          </motion.span>
-        )}
-      </AnimatePresence>
+            >
+              {tooltip.label}
+            </motion.span>
+          )}
+        </AnimatePresence>
+      )}
 
       {/* ── Nav pill ─────────────────────────────────────────────── */}
       <nav

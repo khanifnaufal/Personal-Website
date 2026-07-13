@@ -60,19 +60,6 @@ export default function RootLayout({
       className={cn("dark", orbitron.variable, jetbrainsMono.variable, inter.variable, "font-sans", geist.variable)}
       suppressHydrationWarning
     >
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              try {
-                if (!sessionStorage.getItem('visited_portfolio')) {
-                  document.documentElement.classList.add('loading-state');
-                }
-              } catch (e) {}
-            `,
-          }}
-        />
-      </head>
       <body className="min-h-screen overflow-x-clip">{children}</body>
     </html>
   );

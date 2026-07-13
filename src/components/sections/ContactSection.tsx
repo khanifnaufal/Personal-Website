@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState, useEffect, useRef } from "react";
+import { cn } from "@/lib/utils";
 import { submitContact } from "@/app/actions/contact";
 import { contactSchema } from "@/lib/schemas";
 
@@ -10,7 +11,7 @@ const LINKS = [
   { label: "LinkedIn", value: "linkedin.com/in/khanifnaufal", href: "https://www.linkedin.com/in/khanif-naufal/" },
 ];
 
-export default function ContactSection() {
+export default function ContactSection({ isMobile = false }: { isMobile?: boolean }) {
   const formRef = useRef<HTMLFormElement>(null);
 
   const [state, formAction, isPending] = useActionState(
@@ -50,7 +51,7 @@ export default function ContactSection() {
   }, [state]);
 
   return (
-    <div className="absolute inset-0 flex flex-col justify-center px-8 md:px-16 lg:px-24 py-12 overflow-y-auto">
+    <div className={isMobile ? "relative flex flex-col justify-start pt-16 pb-24 px-6" : "absolute inset-0 flex flex-col justify-center px-8 md:px-16 lg:px-24 py-12 overflow-y-auto"}>
       {/* Eyebrow */}
       <p className="font-mono text-xs tracking-[0.2em] uppercase text-warm-text-muted mb-6 md:mb-8 shrink-0">
         Contact
@@ -115,7 +116,7 @@ export default function ContactSection() {
                   name="name"
                   disabled={isPending}
                   placeholder="Your name"
-                  className="w-full px-3.5 py-2.5 rounded border border-warm-border text-warm-text-primary bg-transparent font-sans text-sm placeholder:text-warm-text-muted focus:outline-none focus:border-warm-text-primary focus:bg-warm-surface/25 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className={cn("w-full px-3.5 py-2.5 rounded border border-warm-border text-warm-text-primary bg-transparent font-sans placeholder:text-warm-text-muted focus:outline-none focus:border-warm-text-primary focus:bg-warm-surface/25 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed", isMobile ? "min-h-[48px] text-base" : "text-sm")}
                 />
                 {state?.errors?.name && (
                   <p className="text-red-600 font-mono text-[11px] mt-1">
@@ -138,7 +139,7 @@ export default function ContactSection() {
                   name="email"
                   disabled={isPending}
                   placeholder="you@example.com"
-                  className="w-full px-3.5 py-2.5 rounded border border-warm-border text-warm-text-primary bg-transparent font-sans text-sm placeholder:text-warm-text-muted focus:outline-none focus:border-warm-text-primary focus:bg-warm-surface/25 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className={cn("w-full px-3.5 py-2.5 rounded border border-warm-border text-warm-text-primary bg-transparent font-sans placeholder:text-warm-text-muted focus:outline-none focus:border-warm-text-primary focus:bg-warm-surface/25 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed", isMobile ? "min-h-[48px] text-base" : "text-sm")}
                 />
                 {state?.errors?.email && (
                   <p className="text-red-600 font-mono text-[11px] mt-1">
@@ -161,7 +162,7 @@ export default function ContactSection() {
                   name="subject"
                   disabled={isPending}
                   placeholder="What is this about?"
-                  className="w-full px-3.5 py-2.5 rounded border border-warm-border text-warm-text-primary bg-transparent font-sans text-sm placeholder:text-warm-text-muted focus:outline-none focus:border-warm-text-primary focus:bg-warm-surface/25 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className={cn("w-full px-3.5 py-2.5 rounded border border-warm-border text-warm-text-primary bg-transparent font-sans placeholder:text-warm-text-muted focus:outline-none focus:border-warm-text-primary focus:bg-warm-surface/25 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed", isMobile ? "min-h-[48px] text-base" : "text-sm")}
                 />
                 {state?.errors?.subject && (
                   <p className="text-red-600 font-mono text-[11px] mt-1">
@@ -184,7 +185,7 @@ export default function ContactSection() {
                   disabled={isPending}
                   rows={4}
                   placeholder="Your message details..."
-                  className="w-full px-3.5 py-2.5 rounded border border-warm-border text-warm-text-primary bg-transparent font-sans text-sm placeholder:text-warm-text-muted focus:outline-none focus:border-warm-text-primary focus:bg-warm-surface/25 transition-all duration-200 resize-none disabled:opacity-50 disabled:cursor-not-allowed"
+                  className={cn("w-full px-3.5 py-2.5 rounded border border-warm-border text-warm-text-primary bg-transparent font-sans placeholder:text-warm-text-muted focus:outline-none focus:border-warm-text-primary focus:bg-warm-surface/25 transition-all duration-200 resize-none disabled:opacity-50 disabled:cursor-not-allowed", isMobile ? "min-h-[48px] text-base" : "text-sm")}
                 />
                 {state?.errors?.message && (
                   <p className="text-red-600 font-mono text-[11px] mt-1">
@@ -216,7 +217,7 @@ export default function ContactSection() {
             <button
               type="submit"
               disabled={isPending}
-              className="w-full py-2.5 px-4 bg-warm-dock-bg text-warm-bg hover:bg-warm-dock-bg/90 active:scale-[0.99] transition-all duration-150 font-sans text-sm font-medium rounded shadow-sm focus:outline-none focus:ring-1 focus:ring-warm-text-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className={cn("w-full py-2.5 px-4 bg-warm-dock-bg text-warm-bg hover:bg-warm-dock-bg/90 active:scale-[0.99] transition-all duration-150 font-sans text-sm font-medium rounded shadow-sm focus:outline-none focus:ring-1 focus:ring-warm-text-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2", isMobile ? "min-h-[44px]" : "")}
             >
               {isPending ? (
                 <>

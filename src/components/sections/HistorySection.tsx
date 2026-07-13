@@ -57,7 +57,7 @@ const getHistoryItems = (category: ActiveCategory): (TimelineItem & { imageUrl?:
   });
 };
 
-export default function HistorySection() {
+export default function HistorySection({ isMobile = false }: { isMobile?: boolean }) {
   const [activeCategory, setActiveCategory] = useState<ActiveCategory>("work");
   const [activeIndex, setActiveIndex] = useState(0);
   const [historyItems, setHistoryItems] = useState<(TimelineItem & { imageUrl?: string; paperUrl?: string })[]>([]);
@@ -67,7 +67,7 @@ export default function HistorySection() {
 
   // Autoplay functionality
   useEffect(() => {
-    if (isPaused || isHovering || historyItems.length <= 1) {
+    if (isMobile || isPaused || isHovering || historyItems.length <= 1) {
       return;
     }
 
@@ -138,7 +138,7 @@ export default function HistorySection() {
   };
 
   return (
-    <div className="relative flex flex-col justify-center px-8 md:px-16 lg:px-24 py-20 overflow-hidden">
+    <div className={isMobile ? "relative flex flex-col justify-start px-6 pt-16 pb-24" : "relative flex flex-col justify-center px-8 md:px-16 lg:px-24 py-20 overflow-hidden"}>
       <div className="max-w-6xl mx-auto w-full mb-12"> {/* New wrapper for alignment */}
         {/* Eyebrow */}
         <p className="font-mono text-xs tracking-[0.2em] uppercase text-warm-text-muted mb-6">
@@ -189,45 +189,50 @@ export default function HistorySection() {
         >
           {/* Vertical Slider Sub-column */}
           <div className="flex flex-col items-center pr-8"> {/* Slider with right padding */}
-            <motion.button
-              whileTap={{ scale: 0.95 }}
-              onClick={handleChevronUp}
-              disabled={activeIndex === 0 || historyItems.length === 0}
-              className="p-2 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-warm-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
-              </svg>
-            </motion.button>
+             <motion.button
+               whileTap={{ scale: 0.95 }}
+               onClick={handleChevronUp}
+               disabled={activeIndex === 0 || historyItems.length === 0}
+               className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+             >
+               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-warm-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+               </svg>
+             </motion.button>
 
             {/* Dots Navigation */}
             <div className="flex flex-col items-center py-4 space-y-3"> {/* Increased space-y */}
-              {historyItems.map((_, index) => (
-                <motion.div
-                  key={index}
-                  onClick={() => goToIndex(index)}
-                  className={`
-                    w-1 h-1 rounded-full cursor-pointer transition-all duration-300
-                    ${activeIndex === index
-                      ? "w-2 h-2 bg-warm-text-primary" // Active dot darker/slightly larger
-                      : "bg-warm-text-muted hover:bg-warm-text-secondary"}
-                  `}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                />
-              ))}
+               {historyItems.map((_, index) => (
+                 <motion.div
+                   key={index}
+                   onClick={() => goToIndex(index)}
+                   className={`
+                     relative w-4 h-4 rounded-full cursor-pointer transition-all duration-300 flex items-center justify-center
+                     ${activeIndex === index ? "bg-transparent" : "bg-transparent"}
+                   `}
+                   whileHover={{ scale: 1.1 }}
+                   whileTap={{ scale: 0.9 }}
+                 >
+                   <div className={`
+                     rounded-full transition-all duration-300
+                     ${activeIndex === index
+                       ? "w-2 h-2 bg-warm-text-primary" // Active dot darker/slightly larger
+                       : "w-1 h-1 bg-warm-text-muted hover:bg-warm-text-secondary"}
+                   `} />
+                 </motion.div>
+               ))}
             </div>
 
-            <motion.button
-              whileTap={{ scale: 0.95 }}
-              onClick={handleChevronDown}
-              disabled={activeIndex === historyItems.length - 1 || historyItems.length === 0}
-              className="p-2 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-warm-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </motion.button>
+             <motion.button
+               whileTap={{ scale: 0.95 }}
+               onClick={handleChevronDown}
+               disabled={activeIndex === historyItems.length - 1 || historyItems.length === 0}
+               className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+             >
+               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-warm-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+               </svg>
+             </motion.button>
           </div>
 
           {/* Entry Details Sub-column */}

@@ -12,6 +12,7 @@ interface HeroCardProps {
   status: string;
   onContactClick: () => void;
   className?: string;
+  isMobile?: boolean;
 }
 
 export const HeroCard = ({
@@ -22,16 +23,19 @@ export const HeroCard = ({
   status,
   onContactClick,
   className,
+  isMobile,
 }: HeroCardProps) => {
+  const hasHover = !isMobile;
+
   return (
     <motion.div
-      className={cn(
-        "relative w-full overflow-hidden rounded-2xl bg-warm-dock will-change-transform",
-        "aspect-[0.7] border border-white/10 shadow-xl shadow-black/30",
-        "flex flex-col", // header di atas, foto ngisi sisa ruang di bawah
-        className,
-      )}
-      whileHover={{ y: -6, rotateX: 2, rotateY: -2 }}
+       className={cn(
+         "relative w-full overflow-hidden rounded-2xl bg-warm-dock will-change-transform",
+         "aspect-[0.7] shadow-xl shadow-black/30",
+         "flex flex-col", // header di atas, foto ngisi sisa ruang di bawah
+         className,
+       )}
+      whileHover={hasHover ? { y: -6, rotateX: 2, rotateY: -2 } : undefined}
       transition={{ type: "spring", stiffness: 200, damping: 10 }}
       style={{
         transformPerspective: 1000,
