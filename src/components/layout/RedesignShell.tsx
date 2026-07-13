@@ -34,11 +34,27 @@ interface Props {
 
 export default function RedesignShell({ projects }: Props) {
   const [activeSection, setActiveSection] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const lastSwitchRef = useRef<number>(0);
+
+  useEffect(() => {
+    const mql = window.matchMedia("(max-width: 767px)");
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    setIsMobile(mql.matches);
+    mql.addEventListener("change", handler);
+    return () => mql.removeEventListener("change", handler);
+  }, []);
 
   const navigateTo = useCallback((index: number) => {
     setActiveSection(Math.max(0, Math.min(SECTION_IDS.length - 1, index)));
-  }, []);
+    if (isMobile) {
+      const id = SECTION_IDS[index];
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [isMobile]);
 
   const navigateRelative = useCallback((delta: 1 | -1) => {
     const now = Date.now();
@@ -50,6 +66,7 @@ export default function RedesignShell({ projects }: Props) {
   }, []);
 
   useEffect(() => {
+    if (isMobile) return;
     const handleWheel = (e: WheelEvent) => {
       if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
       if (e.deltaY === 0) return;
@@ -58,9 +75,41 @@ export default function RedesignShell({ projects }: Props) {
     };
     window.addEventListener("wheel", handleWheel, { passive: false });
     return () => window.removeEventListener("wheel", handleWheel);
-  }, [navigateRelative]);
+  }, [navigateRelative, isMobile]);
 
   useEffect(() => {
+    if (!isMobile) return;
+
+    const observerOptions = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.5,
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.id;
+          const index = SECTION_IDS.indexOf(sectionId as any);
+          if (index !== -1) {
+            setActiveSection(index);
+          }
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    SECTION_IDS.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [isMobile]);
+
+  useEffect(() => {
+    if (isMobile) return;
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === "ArrowDown" || e.key === "ArrowRight") {
         e.preventDefault();
@@ -72,41 +121,51 @@ export default function RedesignShell({ projects }: Props) {
     };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, [navigateRelative]);
+  }, [navigateRelative, isMobile]);
 
   const activeSectionId = SECTION_IDS[activeSection];
 
-  function renderSection() {
-    if (activeSectionId === "hero") {
-      return <HeroSection onNavigate={navigateTo} />;
+  function renderSection(id: string) {
+    if (id === "hero") {
+      return <HeroSection key="hero" onNavigate={navigateTo} isMobile={isMobile} />;
     }
-    if (activeSectionId === "projects") {
-      return <ProjectsSection initialProjects={projects} />;
+    if (id === "projects") {
+      return <ProjectsSection key="projects" initialProjects={projects} isMobile={isMobile} />;
     }
-    const found = STATIC_SECTIONS.find((s) => s.id === activeSectionId);
+    const found = STATIC_SECTIONS.find((s) => s.id === id);
     if (!found) return null;
     
     const Comp = found.component;
-    return <Comp />;
+    return <Comp key={id} isMobile={isMobile} />;
   }
 
   return (
-    <div className="relative h-screen w-screen overflow-hidden bg-warm-bg">
-      <AnimatePresence mode="sync">
-        <motion.div
-          key={activeSectionId}
-          className="absolute inset-0"
-          variants={FADE_VARIANTS}
-          initial="enter"
-          animate="visible"
-          exit="exit"
-        >
-          {renderSection()}
-        </motion.div>
-      </AnimatePresence>
-
-      <DockNav activeIndex={activeSection} onNavigate={navigateTo} />
-      <SectionIndexRail activeIndex={activeSection} onNavigate={navigateTo} />
+    <div className={`relative bg-warm-bg w-full ${isMobile ? "overflow-x-hidden" : "h-screen overflow-hidden"}`}>
+      {isMobile ? (
+        <div className="flex flex-col pb-24">
+          {SECTION_IDS.map((id) => (
+            <div key={id} id={id} className="min-h-[100dvh] w-full">
+              {renderSection(id)}
+            </div>
+          ))}
+        </div>
+      ) : (
+        <AnimatePresence mode="sync">
+          <motion.div
+            key={activeSectionId}
+            className="absolute inset-0"
+            variants={FADE_VARIANTS}
+            initial="enter"
+            animate="visible"
+            exit="exit"
+          >
+            {renderSection(activeSectionId)}
+          </motion.div>
+        </AnimatePresence>
+      )}
+ 
+      <DockNav activeIndex={activeSection} onNavigate={navigateTo} isMobile={isMobile} />
+      {!isMobile && <SectionIndexRail activeIndex={activeSection} onNavigate={navigateTo} />}
     </div>
   );
 }

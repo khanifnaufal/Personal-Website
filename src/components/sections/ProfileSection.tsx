@@ -1,6 +1,7 @@
 "use client";
 
 import { PILOT_PROFILE } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 
 // Custom SVG definitions for logos not available in Devicon or Simple Icons standard list
 const SQL_SVG = (
@@ -85,10 +86,12 @@ function MarqueeRow({
   title,
   items,
   direction = "left",
+  isMobile = false,
 }: {
   title: string;
   items: TechItem[];
   direction?: "left" | "right";
+  isMobile?: boolean;
 }) {
   return (
     <div className="space-y-1">
@@ -96,7 +99,9 @@ function MarqueeRow({
         {title}
       </span>
       <div
-        className="relative w-full overflow-hidden py-1"
+        className={cn(
+          "py-1 relative w-full overflow-hidden"
+        )}
         style={{
           maskImage:
             "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
@@ -105,11 +110,12 @@ function MarqueeRow({
         }}
       >
         <div
-          className={`flex w-max gap-3.5 ${
+          className={cn(
+            "flex gap-2 w-max gap-3.5",
             direction === "left"
               ? "animate-marquee-left"
               : "animate-marquee-right"
-          }`}
+          )}
         >
           {items.concat(items).map((item, idx) => (
             <div
@@ -136,9 +142,9 @@ function MarqueeRow({
   );
 }
 
-export default function ProfileSection() {
+export default function ProfileSection({ isMobile = false }: { isMobile?: boolean }) {
   return (
-    <div className="absolute inset-0 flex flex-col justify-center px-8 md:px-16 lg:px-24">
+    <div className={isMobile ? "relative flex flex-col justify-start pt-16 pb-24 px-6" : "absolute inset-0 flex flex-col justify-center px-8 md:px-16 lg:px-24"}>
       {/* CSS Keyframes injected directly */}
       <style>{`
         @keyframes marquee-left {
@@ -165,9 +171,9 @@ export default function ProfileSection() {
         About
       </p>
 
-      <div className="flex flex-col lg:flex-row items-stretch gap-8 lg:gap-12 max-w-6xl w-full">
-        {/* Column 1: Who I am & Bio */}
-        <div className="flex-[1.3] min-w-0 space-y-4">
+       <div className="flex flex-col lg:flex-row items-stretch gap-8 lg:gap-12 max-w-6xl w-full">
+         {/* Column 1: Who I am & Bio */}
+         <div className={cn("min-w-0 space-y-4", !isMobile && "flex-[1.3]")}>
           <h2 className="font-sans text-3xl md:text-4xl font-semibold text-warm-text-primary leading-snug">
             Who I am
           </h2>
@@ -180,8 +186,11 @@ I'm currently exploring roles across software development and data/analytics, dr
 
         </div>
 
-        {/* Column 2: Vertical Facts (Specialty, Focus, Location) */}
-        <div className="flex-1 border-y lg:border-y-0 lg:border-x border-warm-border py-6 lg:py-0 px-0 lg:px-8 space-y-6 flex flex-col justify-center">
+         {/* Column 2: Vertical Facts (Specialty, Focus, Location) */}
+         <div className={cn(
+           "space-y-6 flex flex-col justify-center px-0 lg:px-8",
+           isMobile ? "border-t border-warm-border pt-8" : "flex-1 border-y lg:border-y-0 lg:border-x border-warm-border py-6 lg:py-0"
+         )}>
           <div className="space-y-1">
             <span className="font-mono text-xs tracking-wider text-warm-text-muted uppercase">
               STATUS
@@ -224,15 +233,15 @@ I'm currently exploring roles across software development and data/analytics, dr
           </div>
         </div>
 
-        {/* Column 3: Tech Stack Grouped Marquees */}
-        <div className="flex-1 min-w-0 space-y-3.5 flex flex-col justify-center">
-          <MarqueeRow title="Languages" items={LANGUAGES} direction="left" />
-          <MarqueeRow title="Frameworks & Libraries" items={FRAMEWORKS} direction="right" />
-          <MarqueeRow title="AI / ML / Data" items={AI_ML} direction="left" />
-          <MarqueeRow title="Databases" items={DATABASES} direction="right" />
-          <MarqueeRow title="Cloud & DevOps" items={CLOUD_DEVOPS} direction="left" />
-          <MarqueeRow title="Tools & Productivity" items={TOOLS} direction="right" />
-        </div>
+         {/* Column 3: Tech Stack Grouped Marquees */}
+         <div className={cn("min-w-0 space-y-3.5 flex flex-col justify-center", !isMobile && "flex-1")}>
+           <MarqueeRow title="Languages" items={LANGUAGES} direction="left" isMobile={isMobile} />
+           <MarqueeRow title="Frameworks & Libraries" items={FRAMEWORKS} direction="right" isMobile={isMobile} />
+           <MarqueeRow title="AI / ML / Data" items={AI_ML} direction="left" isMobile={isMobile} />
+           <MarqueeRow title="Databases" items={DATABASES} direction="right" isMobile={isMobile} />
+           <MarqueeRow title="Cloud & DevOps" items={CLOUD_DEVOPS} direction="left" isMobile={isMobile} />
+           <MarqueeRow title="Tools & Productivity" items={TOOLS} direction="right" isMobile={isMobile} />
+         </div>
       </div>
     </div>
   );
