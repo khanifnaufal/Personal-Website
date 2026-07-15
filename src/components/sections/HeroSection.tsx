@@ -56,22 +56,22 @@ export default function HeroSection({ onNavigate, isMobile }: HeroSectionProps) 
             }`}
         />
 
-        {/* Summary */}
-        <BlurText
-          text="Informatics Engineering graduate drawn to how things are built and what the data behind them says."
-          animateBy="words"
-          direction="bottom"
-          delay={30}
-          stepDuration={0.35}
-          animateOnFirstLoad
-          animationFrom={{ filter: "blur(10px)", opacity: 0, y: 20 }}
-          animationTo={[
-            { filter: "blur(5px)", opacity: 0.5, y: 10 },
-            { filter: "blur(0px)", opacity: 1, y: 0 },
-          ]}
-           className={`font-sans text-base text-warm-text-secondary max-w-md leading-relaxed flex flex-wrap ${isMobile ? "justify-center mx-auto mb-6" : "justify-start mb-10"
-             }`}
-        />
+         {/* Summary */}
+         <BlurText
+           text="Informatics Engineering graduate drawn to how things are built and what the data behind them says."
+           animateBy="words"
+           direction="bottom"
+           delay={30}
+           stepDuration={0.35}
+           animateOnFirstLoad
+           animationFrom={{ filter: "blur(10px)", opacity: 0, y: 20 }}
+           animationTo={[
+             { filter: "blur(5px)", opacity: 0.5, y: 10 },
+             { filter: "blur(0px)", opacity: 1, y: 0 },
+           ]}
+            className={`font-sans text-base text-warm-text-secondary max-w-md leading-relaxed flex flex-wrap ${isMobile ? "justify-center mx-auto mb-3" : "justify-start mb-10"
+              }`}
+         />
       </div>
 
       {/* Profile Card Container - Stacked below text on mobile, side-by-side on desktop */}
