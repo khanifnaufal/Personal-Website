@@ -206,6 +206,7 @@ export interface Project {
   githubUrl?: string;
   image?: string;
   languages?: string[];
+  pushedAt?: string;
 }
 
 export const PROJECTS: Project[] = [

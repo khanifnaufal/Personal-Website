@@ -163,28 +163,6 @@ ProjectCard.displayName = "ProjectCard";
 function MobileProjectCarousel({ projects, allProjects }: { projects: Project[]; allProjects: Project[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const langDist = useMemo(() => {
-    const counts: Record<string, number> = {};
-    let totalTags = 0;
-
-    allProjects.forEach((p) => {
-      (p.languages ?? []).forEach((lang) => {
-        if (lang) {
-          counts[lang] = (counts[lang] || 0) + 1;
-          totalTags++;
-        }
-      });
-    });
-
-    return Object.entries(counts)
-      .map(([name, count]) => ({
-        name,
-        percentage: Math.round((count / totalTags) * 100),
-      }))
-      .sort((a, b) => b.percentage - a.percentage)
-      .slice(0, 4);
-  }, [allProjects]);
-
   const handleDragEnd = (_: any, info: any) => {
     const swipeThreshold = 60;
     if (info.offset.x < -swipeThreshold && currentIndex < projects.length - 1) {
@@ -193,6 +171,36 @@ function MobileProjectCarousel({ projects, allProjects }: { projects: Project[];
       setCurrentIndex((prev) => prev - 1);
     }
   };
+
+  const languageStats = useMemo(() => {
+    const LANG_COLORS: Record<string, string> = {
+      TypeScript: '#6B7FA8',
+      JavaScript: '#B8A369',
+      'Jupyter Notebook': '#8B9D83',
+      Vue: '#A87F9E',
+      Python: '#7FA893',
+      HTML: '#B8896B',
+    };
+    const DEFAULT_COLOR = '#8A8A86';
+    const langCounts: Record<string, number> = {};
+    let totalLangProjects = 0;
+    allProjects.forEach((p) => {
+      (p.languages ?? []).forEach((lang) => {
+        if (lang) {
+          langCounts[lang] = (langCounts[lang] || 0) + 1;
+          totalLangProjects++;
+        }
+      });
+    });
+    return Object.entries(langCounts)
+      .sort(([, countA], [, countB]) => countB - countA)
+      .slice(0, 4)
+      .map(([lang, count]) => ({
+        lang,
+        percentage: totalLangProjects > 0 ? Math.round((count / totalLangProjects) * 100) : 0,
+        barColor: LANG_COLORS[lang] || DEFAULT_COLOR,
+      }));
+  }, [allProjects]);
 
   return (
     <div className="relative w-full flex flex-col items-center">
@@ -247,31 +255,24 @@ function MobileProjectCarousel({ projects, allProjects }: { projects: Project[];
         >
           {projects.length} projects on GitHub
         </a>
+      </div>
 
-        {/* Language Distribution Summary */}
-        <div className="mt-6 w-full max-w-[260px] space-y-2.5">
-          {langDist.map((item) => (
-            <div key={item.name} className="flex items-center gap-3">
-              <span className="font-mono text-[9px] text-warm-text-muted w-20 truncate text-left uppercase tracking-tighter">
-                {item.name}
-              </span>
-              <div className="flex-1 h-1 bg-warm-border/20 rounded-full overflow-hidden">
-                <motion.div 
-                  initial={{ width: 0 }}
-                  animate={{ width: `${item.percentage}%` }}
-                  transition={{ duration: 1, ease: "easeOut" }}
-                  className="h-full bg-warm-text-muted/60" 
-                />
-              </div>
-              <span className="font-mono text-[9px] text-warm-text-muted w-8 text-right">
-                {item.percentage}%
-              </span>
+    {/* Language bars */}
+    <div className="w-full px-6 mt-8">
+      <div className="flex flex-col gap-3">
+        {languageStats.map(({ lang, percentage, barColor }) => (
+          <div key={lang} style={{ display: 'grid', gridTemplateColumns: '80px 1fr 40px', alignItems: 'center', gap: '12px', width: '100%' }}>
+            <span style={{ fontSize: '11px', color: '#1C1C1A', fontWeight: 500 }}>{lang}</span>
+            <div style={{ width: '100%', height: '8px', background: '#EBEAE5', borderRadius: '4px', overflow: 'hidden' }}>
+              <div style={{ width: `${percentage}%`, height: '100%', background: barColor, borderRadius: '4px' }} />
             </div>
-          ))}
-        </div>
+            <span style={{ fontSize: '11px', color: '#5C5C58', textAlign: 'right' }}>{percentage}%</span>
+          </div>
+        ))}
       </div>
     </div>
-  );
+  </div>
+);
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
