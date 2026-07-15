@@ -163,48 +163,6 @@ ProjectCard.displayName = "ProjectCard";
 function MobileProjectCarousel({ projects, allProjects }: { projects: Project[]; allProjects: Project[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Calculate total projects
-  const totalProjects = projects.length;
-
-  // Calculate primary language
-  const langCounts: Record<string, number> = {};
-  allProjects.forEach((p) => {
-    (p.languages ?? []).forEach((lang) => {
-      if (lang) {
-        langCounts[lang] = (langCounts[lang] || 0) + 1;
-      }
-    });
-  });
-
-  let primaryLanguage = "N/A";
-  let maxCount = 0;
-  Object.entries(langCounts).forEach(([lang, count]) => {
-    if (count > maxCount) {
-      maxCount = count;
-      primaryLanguage = lang;
-    }
-  });
-
-  // Calculate latest update date
-  let latestUpdateDate = "N/A";
-  if (allProjects.length > 0) {
-    const sortedProjects = [...allProjects].sort((a, b) => {
-      const dateA = new Date(a.pushedAt || 0); 
-      const dateB = new Date(b.pushedAt || 0);
-      return dateB.getTime() - dateA.getTime(); // Descending order
-    });
-    if (sortedProjects[0] && sortedProjects[0].pushedAt) {
-      try {
-        const date = new Date(sortedProjects[0].pushedAt);
-        // Format: "Jul 2026"
-        latestUpdateDate = date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
-      } catch (e) {
-        console.error("Error formatting date:", e);
-        latestUpdateDate = "Invalid Date";
-      }
-    }
-  }
-
   const handleDragEnd = (_: any, info: any) => {
     const swipeThreshold = 60;
     if (info.offset.x < -swipeThreshold && currentIndex < projects.length - 1) {
@@ -213,6 +171,36 @@ function MobileProjectCarousel({ projects, allProjects }: { projects: Project[];
       setCurrentIndex((prev) => prev - 1);
     }
   };
+
+  const languageStats = useMemo(() => {
+    const LANG_COLORS: Record<string, string> = {
+      TypeScript: '#6B7FA8',
+      JavaScript: '#B8A369',
+      'Jupyter Notebook': '#8B9D83',
+      Vue: '#A87F9E',
+      Python: '#7FA893',
+      HTML: '#B8896B',
+    };
+    const DEFAULT_COLOR = '#8A8A86';
+    const langCounts: Record<string, number> = {};
+    let totalLangProjects = 0;
+    allProjects.forEach((p) => {
+      (p.languages ?? []).forEach((lang) => {
+        if (lang) {
+          langCounts[lang] = (langCounts[lang] || 0) + 1;
+          totalLangProjects++;
+        }
+      });
+    });
+    return Object.entries(langCounts)
+      .sort(([, countA], [, countB]) => countB - countA)
+      .slice(0, 4)
+      .map(([lang, count]) => ({
+        lang,
+        percentage: totalLangProjects > 0 ? Math.round((count / totalLangProjects) * 100) : 0,
+        barColor: LANG_COLORS[lang] || DEFAULT_COLOR,
+      }));
+  }, [allProjects]);
 
   return (
     <div className="relative w-full flex flex-col items-center">
@@ -269,51 +257,18 @@ function MobileProjectCarousel({ projects, allProjects }: { projects: Project[];
         </a>
       </div>
 
-    {/* Language bars — KONTAINER TERPISAH, lebar penuh mengikuti padding section, TIDAK di dalam div nav di atas */}
+    {/* Language bars */}
     <div className="w-full px-6 mt-8">
       <div className="flex flex-col gap-3">
-        {(() => {
-            const LANG_COLORS: Record<string, string> = {
-              TypeScript: '#6B7FA8',
-              JavaScript: '#B8A369',
-              'Jupyter Notebook': '#8B9D83',
-              Vue: '#A87F9E',
-              Python: '#7FA893',
-              HTML: '#B8896B',
-            };
-            const DEFAULT_COLOR = '#8A8A86';
-
-            const langCounts: Record<string, number> = {};
-            let totalLangProjects = 0;
-            allProjects.forEach((p) => {
-              (p.languages ?? []).forEach((lang) => {
-                if (lang) {
-                  langCounts[lang] = (langCounts[lang] || 0) + 1;
-                  totalLangProjects++;
-                }
-              });
-            });
-
-            const sortedLanguages = Object.entries(langCounts)
-              .sort(([, countA], [, countB]) => countB - countA)
-              .slice(0, 4);
-
-            return (
-                sortedLanguages.map(([lang, count]) => {
-                  const percentage = totalLangProjects > 0 ? Math.round((count / totalLangProjects) * 100) : 0;
-                  const barColor = LANG_COLORS[lang] || DEFAULT_COLOR;
-                  return (
-                    <div key={lang} style={{ display: 'grid', gridTemplateColumns: '80px 1fr 40px', alignItems: 'center', gap: '12px', width: '100%' }}>
-                      <span style={{ fontSize: '11px', color: '#1C1C1A', fontWeight: 500 }}>{lang}</span>
-                      <div style={{ width: '100%', height: '8px', background: '#EBEAE5', borderRadius: '4px', overflow: 'hidden' }}>
-                        <div style={{ width: `${percentage}%`, height: '100%', background: barColor, borderRadius: '4px' }} />
-                      </div>
-                      <span style={{ fontSize: '11px', color: '#5C5C58', textAlign: 'right' }}>{percentage}%</span>
-                    </div>
-                  );
-                })
-            );
-          })()}
+        {languageStats.map(({ lang, percentage, barColor }) => (
+          <div key={lang} style={{ display: 'grid', gridTemplateColumns: '80px 1fr 40px', alignItems: 'center', gap: '12px', width: '100%' }}>
+            <span style={{ fontSize: '11px', color: '#1C1C1A', fontWeight: 500 }}>{lang}</span>
+            <div style={{ width: '100%', height: '8px', background: '#EBEAE5', borderRadius: '4px', overflow: 'hidden' }}>
+              <div style={{ width: `${percentage}%`, height: '100%', background: barColor, borderRadius: '4px' }} />
+            </div>
+            <span style={{ fontSize: '11px', color: '#5C5C58', textAlign: 'right' }}>{percentage}%</span>
+          </div>
+        ))}
       </div>
     </div>
   </div>

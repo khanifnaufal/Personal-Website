@@ -62,7 +62,7 @@ export async function getGithubProjects(): Promise<Project[]> {
         liveUrl: repo.homepage || null,
         githubUrl: repo.html_url,
         languages: primaryLang,
-        pushedAt: repo.pushed_at || null,
+        pushedAt: repo.pushed_at || undefined,
         image: `https://raw.githubusercontent.com/${username}/${repo.name}/${repo.default_branch}/screenshot.png`,
       };
     });
